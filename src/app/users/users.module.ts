@@ -36,7 +36,7 @@ import { SuccessComponent } from './components/success/success.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 
-
+import { NzFormModule } from 'ng-zorro-antd/form';
 @NgModule({
 
   imports: [
@@ -57,6 +57,7 @@ import { FooterComponent } from './components/footer/footer.component';
     BrowserAnimationsModule,
     HttpClientModule,
     NzCollapseModule,
+    NzFormModule ,
  
   ],
   declarations: [UserLoginComponent,
