@@ -17,7 +17,7 @@ export class HomeComponent implements OnInit {
   searchForm!: FormGroup;
   pickupSuggestedCities$: Observable<any[]> | undefined;
   dropoffSuggestedCities$: Observable<any[]> | undefined;
-
+  
   constructor(
     private fb: FormBuilder,
     private cityService: CommonService,
@@ -57,7 +57,9 @@ export class HomeComponent implements OnInit {
               pickupCoordinates.latitude,
               pickupCoordinates.longitude,
               dropoffCoordinates.latitude,
-              dropoffCoordinates.longitude
+              dropoffCoordinates.longitude,
+              pickupLocation,
+              dropoffLocation
             );
 
             console.log('Distance between pickup and drop-off locations:', distance.toFixed(2), 'km');
@@ -69,7 +71,7 @@ export class HomeComponent implements OnInit {
         console.error('Failed to get coordinates for pickup location:', pickupLocation);
       }
     });
-
+    
     this.route.navigate(['vehicles-and-goods-info'])
   }
 

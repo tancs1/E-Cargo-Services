@@ -12,8 +12,12 @@ export class UserCommonService {
   selectedHelper: string = ''; // Holds the selected helper
 distance:any
   totalVechialPrice:any;
-  users: { userId: number, distance: number,SelectedVehicle:string,selectedVehicleImg:string,estimatedWeight:string,selectedGoodsType:string,selectedHelper:string,totalVechialPrice:any }[] = [];
+  users: { userId: number, distance: number,SelectedVehicle:string,selectedVehicleImg:string,estimatedWeight:string,selectedGoodsType:string,selectedHelper:string,totalVechialPrice:any,pickupLocation:any,dropoffLocation:any }[] = [];
   randomUserId: any;
+  pickupLocation: any;
+  dropoffLocation: any;
+  orderSuccessful: boolean=false
+  rafranceId:number=0
 constructor(private router:Router) {
   const storedUsers = localStorage.getItem('users');
   if (storedUsers) {
@@ -22,7 +26,7 @@ constructor(private router:Router) {
     
   }
  }
-calculateDistance(lat1: number, lon1: number, lat2: number, lon2: number): number {
+calculateDistance(lat1: number, lon1: number, lat2: number, lon2: number,pickupLocation:any,dropoffLocation:any): number {
   debugger
   const R = 6371; // Radius of the Earth in km
   const dLat = this.degreesToRadians(lat2 - lat1);
@@ -37,7 +41,8 @@ calculateDistance(lat1: number, lon1: number, lat2: number, lon2: number): numbe
   console.log('distance between dropoff and pick up location: ' +  this.distance);
   this.randomUserId = Math.floor(1000 + Math.random() * 9000);
 
-
+ this.pickupLocation=pickupLocation;
+ this.dropoffLocation=dropoffLocation
   return this.distance;
 }
 
@@ -103,7 +108,7 @@ this.totalVechialPrice = totalPrice
   localStorage.setItem('users','');
   this.users.splice(0)
   // Store the user ID and distance in the array
-  this.users.push({userId: this.randomUserId, distance: this.distance,SelectedVehicle:this.selectedVehicle,selectedVehicleImg:this.selectedVehicleImg,estimatedWeight:this.estimatedWeight,selectedGoodsType:this.selectedGoodsType,selectedHelper:this.selectedHelper,totalVechialPrice:this.totalVechialPrice});
+  this.users.push({userId: this.randomUserId, distance: this.distance,SelectedVehicle:this.selectedVehicle,selectedVehicleImg:this.selectedVehicleImg,estimatedWeight:this.estimatedWeight,selectedGoodsType:this.selectedGoodsType,selectedHelper:this.selectedHelper,totalVechialPrice:this.totalVechialPrice,pickupLocation:this.pickupLocation,dropoffLocation:this.dropoffLocation});
 
   // Save the updated user array to local storage
   localStorage.setItem('users', JSON.stringify(this.users));
