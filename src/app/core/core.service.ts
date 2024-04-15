@@ -126,5 +126,7 @@ export class CoreService {
   orderCancelReason(){
     return this.http.get<any>(`http://localhost:3000/orderCancelReason`);
   }
-
+  getAdminRecord(): Observable<any> {
+    return this.http.get<any>(`http://localhost:3000/adminDetails`);
+  }
 }

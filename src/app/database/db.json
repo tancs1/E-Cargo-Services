@@ -1,4 +1,10 @@
 {
+  "adminDetails":[{
+"id": "admin123456",
+"name":"tanveer",
+"email":"tanveer@gmail.com",
+"password":"123456"
+  }],
   "usersBookingRecord": [
     {
       "id": "5447",
@@ -95,150 +101,6 @@
       "date": "3/30/2024",
       "JobBookedDate": "3/29/2024",
       "JobBookedTime": "10:38:27 AM"
-    },
-    {
-      "id": "f1c7",
-      "userId": "_y47xtg49k",
-      "distance": 390,
-      "SelectedVehicle": "Suzuki Ravi ( Upto 1.2 TON )",
-      "selectedVehicleImg": "../../../../assets/imges/van-images/suzuki-ravi.png",
-      "estimatedWeight": "1",
-      "selectedGoodsType": "Automobile",
-      "selectedHelper": "1 ",
-      "totalVechialPrice": 3900,
-      "pickupLocation": "Lahore Fort, Circular Road, Murad Ali Shah, Bela Basti Ram, Qila Lachman Singh, Lahore District, Lahore Division, Punjab, Pakistan",
-      "dropoffLocation": "Lane, Kalma chowk, Dera Ghazi Khan, Dera Ghazi Khan Tehsil, Dera Ghazi Khan District, Dera Ghazi Khan Division, Punjab, Pakistan",
-      "pickupTime": "12:00 To 2:00 AM",
-      "fullName": "Charles Dejesus",
-      "phoneNumber": 986,
-      "receiverName": "Phyllis Sandoval",
-      "receiverPhoneNumber": 57,
-      "senderAddress": "Darius Fowler",
-      "receiverAddress": "Odette Norris",
-      "itemDetails": "Ea commodo tenetur s",
-      "date": "4/6/2024",
-      "JobBookedDate": "4/6/2024",
-      "JobBookedTime": "02:43:39 PM"
-    },
-    {
-      "id": "ef98",
-      "userId": "_y47xtg49k",
-      "distance": 390,
-      "SelectedVehicle": "Suzuki Ravi ( Upto 1.2 TON )",
-      "selectedVehicleImg": "../../../../assets/imges/van-images/suzuki-ravi.png",
-      "estimatedWeight": "1",
-      "selectedGoodsType": "Automobile",
-      "selectedHelper": "1 ",
-      "totalVechialPrice": 3900,
-      "pickupLocation": "Lahore Fort, Circular Road, Murad Ali Shah, Bela Basti Ram, Qila Lachman Singh, Lahore District, Lahore Division, Punjab, Pakistan",
-      "dropoffLocation": "Lane, Kalma chowk, Dera Ghazi Khan, Dera Ghazi Khan Tehsil, Dera Ghazi Khan District, Dera Ghazi Khan Division, Punjab, Pakistan",
-      "pickupTime": "12:00 To 2:00 AM",
-      "fullName": "Charles Dejesus",
-      "phoneNumber": 986,
-      "receiverName": "Phyllis Sandoval",
-      "receiverPhoneNumber": 57,
-      "senderAddress": "Darius Fowler",
-      "receiverAddress": "Odette Norris",
-      "itemDetails": "Ea commodo tenetur s",
-      "date": "4/6/2024",
-      "JobBookedDate": "4/6/2024",
-      "JobBookedTime": "02:43:39 PM"
-    },
-    {
-      "id": "6fb0",
-      "userId": "_y47xtg49k",
-      "distance": 390,
-      "SelectedVehicle": "Suzuki Ravi ( Upto 1.2 TON )",
-      "selectedVehicleImg": "../../../../assets/imges/van-images/suzuki-ravi.png",
-      "estimatedWeight": "1",
-      "selectedGoodsType": "Automobile",
-      "selectedHelper": "1 ",
-      "totalVechialPrice": 3900,
-      "pickupLocation": "Lahore Fort, Circular Road, Murad Ali Shah, Bela Basti Ram, Qila Lachman Singh, Lahore District, Lahore Division, Punjab, Pakistan",
-      "dropoffLocation": "Lane, Kalma chowk, Dera Ghazi Khan, Dera Ghazi Khan Tehsil, Dera Ghazi Khan District, Dera Ghazi Khan Division, Punjab, Pakistan",
-      "pickupTime": "12:00 To 2:00 AM",
-      "fullName": "Charles Dejesus",
-      "phoneNumber": 986,
-      "receiverName": "Phyllis Sandoval",
-      "receiverPhoneNumber": 57,
-      "senderAddress": "Darius Fowler",
-      "receiverAddress": "Odette Norris",
-      "itemDetails": "Ea commodo tenetur s",
-      "date": "4/6/2024",
-      "JobBookedDate": "4/6/2024",
-      "JobBookedTime": "02:43:39 PM"
-    },
-    {
-      "id": "7689",
-      "userId": "_y47xtg49k",
-      "distance": 390,
-      "SelectedVehicle": "Suzuki Ravi ( Upto 1.2 TON )",
-      "selectedVehicleImg": "../../../../assets/imges/van-images/suzuki-ravi.png",
-      "estimatedWeight": "1",
-      "selectedGoodsType": "Automobile",
-      "selectedHelper": "1 ",
-      "totalVechialPrice": 3900,
-      "pickupLocation": "Lahore Fort, Circular Road, Murad Ali Shah, Bela Basti Ram, Qila Lachman Singh, Lahore District, Lahore Division, Punjab, Pakistan",
-      "dropoffLocation": "Lane, Kalma chowk, Dera Ghazi Khan, Dera Ghazi Khan Tehsil, Dera Ghazi Khan District, Dera Ghazi Khan Division, Punjab, Pakistan",
-      "pickupTime": "12:00 To 2:00 AM",
-      "fullName": "Charles Dejesus",
-      "phoneNumber": 986,
-      "receiverName": "Phyllis Sandoval",
-      "receiverPhoneNumber": 57,
-      "senderAddress": "Darius Fowler",
-      "receiverAddress": "Odette Norris",
-      "itemDetails": "Ea commodo tenetur s",
-      "date": "4/6/2024",
-      "JobBookedDate": "4/6/2024",
-      "JobBookedTime": "02:43:39 PM"
-    },
-    {
-      "id": "d095",
-      "userId": "_y47xtg49k",
-      "distance": 390,
-      "SelectedVehicle": "Suzuki Ravi ( Upto 1.2 TON )",
-      "selectedVehicleImg": "../../../../assets/imges/van-images/suzuki-ravi.png",
-      "estimatedWeight": "1",
-      "selectedGoodsType": "Automobile",
-      "selectedHelper": "1 ",
-      "totalVechialPrice": 3900,
-      "pickupLocation": "Lahore Fort, Circular Road, Murad Ali Shah, Bela Basti Ram, Qila Lachman Singh, Lahore District, Lahore Division, Punjab, Pakistan",
-      "dropoffLocation": "Lane, Kalma chowk, Dera Ghazi Khan, Dera Ghazi Khan Tehsil, Dera Ghazi Khan District, Dera Ghazi Khan Division, Punjab, Pakistan",
-      "pickupTime": "12:00 To 2:00 AM",
-      "fullName": "Charles Dejesus",
-      "phoneNumber": 986,
-      "receiverName": "Phyllis Sandoval",
-      "receiverPhoneNumber": 57,
-      "senderAddress": "Darius Fowler",
-      "receiverAddress": "Odette Norris",
-      "itemDetails": "Ea commodo tenetur s",
-      "date": "4/6/2024",
-      "JobBookedDate": "4/6/2024",
-      "JobBookedTime": "02:43:39 PM"
-    },
-    {
-      "id": "502b",
-      "userId": "_y47xtg49k",
-      "distance": 390,
-      "SelectedVehicle": "Suzuki Ravi ( Upto 1.2 TON )",
-      "selectedVehicleImg": "../../../../assets/imges/van-images/suzuki-ravi.png",
-      "estimatedWeight": "1",
-      "selectedGoodsType": "Automobile",
-      "selectedHelper": "1 ",
-      "totalVechialPrice": 3900,
-      "pickupLocation": "Lahore Fort, Circular Road, Murad Ali Shah, Bela Basti Ram, Qila Lachman Singh, Lahore District, Lahore Division, Punjab, Pakistan",
-      "dropoffLocation": "Lane, Kalma chowk, Dera Ghazi Khan, Dera Ghazi Khan Tehsil, Dera Ghazi Khan District, Dera Ghazi Khan Division, Punjab, Pakistan",
-      "pickupTime": "12:00 To 2:00 AM",
-      "fullName": "Charles Dejesus",
-      "phoneNumber": 986,
-      "receiverName": "Phyllis Sandoval",
-      "receiverPhoneNumber": 57,
-      "senderAddress": "Darius Fowler",
-      "receiverAddress": "Odette Norris",
-      "itemDetails": "Ea commodo tenetur s",
-      "date": "4/6/2024",
-      "JobBookedDate": "4/6/2024",
-      "JobBookedTime": "02:43:39 PM"
     },
     {
       "id": "a8a3",
@@ -682,31 +544,31 @@
   "orderCancelReason": [
     {
       "id": "1",
-      "reason": "Testing Entry"
+      "reason": "testing Entry"
     },
     {
       "id": "2",
-      "reason": " Transporter didn't get job on time "
+      "reason": "transporter didn't get job on time"
     },
     {
       "id": "3",
-      "reason": "  Job not ready  "
+      "reason": "job not ready"
     },
     {
       "id": "4",
-      "reason": "  High price  "
+      "reason": "high price"
     },
     {
       "id": "5",
-      "reason": "  Job details changed  "
+      "reason": "  job details changed  "
     },
     {
       "id": "6",
-      "reason": "   I don't need transporter anymore   "
+      "reason": "i don't need transporter anymore"
     },
     {
       "id": "7",
-      "reason": "    Other    "
+      "reason": "other"
     }
   ],
   "AgencySignUp": [
