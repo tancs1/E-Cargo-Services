@@ -30,18 +30,15 @@ import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { NzTimePickerModule } from 'ng-zorro-antd/time-picker';
 import { AdminDashbordComponent } from './components/AdminDashbord/admin-Dashbord/admin-Dashbord.component';
 import { AdminMainDashComponent } from './components/AdminDashbord/admin-main-dash/admin-main-dash.component';
-import { FooterComponent } from './components/AdminDashbord/footer/footer.component';
 import { HeaderComponent } from './components/AdminDashbord/header/header.component';
 import { SideBarComponent } from './components/AdminDashbord/sideBar/sideBar.component';
+import { AdminDashFooterComponent } from './components/AdminDashbord/admin-dash-footer/admin-dash-footer.component';
 
 @NgModule({
-  declarations: [AdminLoginComponent,AdminDashbordComponent,AdminMainDashComponent,FooterComponent,HeaderComponent,SideBarComponent],
+  declarations: [AdminLoginComponent,AdminDashbordComponent,AdminMainDashComponent,AdminDashFooterComponent,HeaderComponent,SideBarComponent],
   imports: [
   
     AdminRoutingModule,
-
-
-
     CommonModule,
     NzIconModule,
 

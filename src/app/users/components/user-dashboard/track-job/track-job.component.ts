@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DashCommonService } from '../dash-common.service';
-import 'leaflet-routing-machine'
+import * as L from 'leaflet';
+import 'leaflet-routing-machine';
+
 
 import { NzImageService } from 'ng-zorro-antd/image';
 import { CommonService } from 'src/app/common.service';
 
 
-import * as L from 'leaflet';
 import { Observable, of } from 'rxjs';
 @Component({
   selector: 'app-track-job',
@@ -105,7 +106,7 @@ export class TrackJobComponent implements OnInit {
     }
     this.initMap();
     this.getLiveLocation()
-
+this.drawRoute()
   }
 
 
@@ -118,12 +119,7 @@ export class TrackJobComponent implements OnInit {
     
     debugger
 
-    if (this.liveLocationlatitude) {
-
-
-      L.marker([this.liveLocationlatitude, this.liveLocationlongitude]).addTo(this.map)
-        .bindPopup('Pick-up Location').openPopup();
-    }
+    
 
 
 
@@ -179,5 +175,36 @@ export class TrackJobComponent implements OnInit {
       console.error('Geolocation is not supported by this browser.');
     }
   }
+  drawRoute(): void {
+  
+      this.dropoffCoordinates$.subscribe(dropoffCoordinates => {
+        if (dropoffCoordinates) {
+          
+          if(this.liveLocation && this.liveLocation.latitude && this.liveLocation.longitude && this.dropoffCoordinates$){
+            const pickUpLatLng = L.latLng(this.liveLocation.latitude, this.liveLocation.longitude);
+            const dropOffLatLng = L.latLng(dropoffCoordinates.latitude, dropoffCoordinates.longitude);
+            
+  
+          // Clear previous routes if any
+          if (this.map) {
+            this.map.eachLayer((layer:any) => {
+              if (layer instanceof (L as any).Routing.Control) {
+                this.map.removeControl(layer);
+              }
+            });
+          }
+  
+          // Create a routing control and add it to the map
+          (L as any).Routing.control({
+            waypoints: [pickUpLatLng, dropOffLatLng],
+            routeWhileDragging: true
+          }).addTo(this.map);
+          }
+        }
+      });
+    
+  }
+  
+  
 
 }
