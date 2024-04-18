@@ -9,6 +9,7 @@ interface DataItem {
   vehicleNumber: number;
   address: string;
   phoneNumber: string;
+  id:any
 }
 @Component({
   selector: 'app-manage-driver',
@@ -21,6 +22,8 @@ export class ManageDriverComponent implements OnInit {
   submitted = false;
   agencyid: any;
   driverDetail: any = [];
+  drawertype:any
+  driverId: any;
   constructor(private fb: FormBuilder, private message: NzMessageService, private coreService: CoreService) {
     this.form = this.fb.group({
       fullName: ['', Validators.required],
@@ -83,13 +86,22 @@ export class ManageDriverComponent implements OnInit {
 
     }
   }
-
+  addDriver(){
+    this.drawertype='add';
+    this.open()
+  }
   // drawer
   visible = false;
   size: 'large' = 'large';
 
   get title(): string {
-    return `Add New Driver`;
+    if(this.drawertype==='add'){
+
+      return `Add New Driver`;
+    }else{
+      return `Update Driver Details`;
+
+    }
   }
 
 
@@ -121,12 +133,74 @@ export class ManageDriverComponent implements OnInit {
   }
 
   search(): void {
-    this.visible = false;
+   
     this.listOfDisplayData = this.listOfData.filter((item: DataItem) =>
       item.fullName.toLowerCase().includes(this.searchValue.toLowerCase())
     );
   }
   
+  closeDropdown(){
+this.visibletable=false
+  }
+  deleteDriver(id:any){
+    debugger
+    
+this.coreService.DelDriverDetail(id).subscribe(driver =>{
+  this.getdriverDetail()
+  this.message.create('success', `Driver Deleted successfully`);
+})
+  }
+ 
+  EditDriveDetail(id:any){
+    debugger
+    this.drawertype="edit"
+    this.coreService.GetDriverDetailById(id).subscribe(data =>{
+      const driverdata:any=[]
+      driverdata.push(data)
+      driverdata.forEach((element:any) => {
+        this.form.patchValue({
+          fullName:element.fullName,
+          address:element.address,
+          email:element.email,
+          phoneNumber:element.phoneNumber,
+          cnic:element.cnic,
+          vehicleNumber:element.vehicleNumber,
+
+        })
+        this.driverId=element.id
+      });
+    })
+    this.open()
 
 
+  }
+  
+  updateDriverDetail() {
+    this.submitted = true;
+    debugger
+    if (this.form.valid) {
+      // Handle form1 submission logic here
+      console.log(this.form.value);
+      let formData = { AgencyId: this.agencyid, ...this.form.value };
+     
+      this.coreService.updateDriverDetail(this.driverId,formData).subscribe(
+        data => {
+          console.log(data);
+          this.message.create('success', `Driver Update successfully`);
+          this.form.reset()
+          this.visible = false;
+          this.getdriverDetail()
+          console.log('Form submitted successfully:', data);
+        },
+        error => {
+          // Handle submission error
+          console.error('Error submitting form:', error);
+        }
+      )
+
+    } else {
+      this.message.create('warning', `Fill Form Correctly`);
+
+    }
+  }
 }
