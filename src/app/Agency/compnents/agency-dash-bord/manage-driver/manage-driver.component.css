@@ -12,3 +12,10 @@
       .search-button {
         margin-right: 8px;
       }
+      .tableHeader  th,td{
+text-align: center;
+      }
+      .tableHeader  th{
+background-color: lightblue;
+color: white;
+              }

@@ -32,6 +32,7 @@ export class ManageDriverComponent implements OnInit {
       phoneNumber: ['', [Validators.required, Validators.pattern(/^\d{11}$/)]],
       cnic: ['', [Validators.required, Validators.pattern(/^\d{13}$/)]],
       vehicleNumber: ['', Validators.required],
+      driverPassword: ['', Validators.required],
     });
   }
 

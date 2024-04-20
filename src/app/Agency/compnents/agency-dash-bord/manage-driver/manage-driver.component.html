@@ -1,14 +1,14 @@
 <div class=" w-full  h-[100vh] bg-[#FAFAFA]  overflow-x-hidden  pb-20">
   <div class="  md:ml-40 lg:ml-80 ml-28  text-slate-600    mt-32   flex  ">
     <div class="w-5/6 flex justify-center">
-<span class="font-semibold text-4xl underline">Resgistered Driver </span>
+<span class="font-semibold text-4xl underline">Registered Drivers </span>
     </div>
 
 
   </div>
   <div class="md:ml-40 lg:ml-80 ml-28   mr-28   mt-24"> 
    <div class="text-end mb-5"> <button class="rounded-lg" (click)="addDriver()" nz-button nzType="primary" ><span nz-icon nzType="plus"></span>Add New Driver </button></div>
-    <nz-table #nzTable [nzData]="listOfDisplayData" nzTableLayout="fixed">
+    <nz-table #nzTable [nzData]="listOfDisplayData" nzTableLayout="fixed"  class="tableHeader">
       <thead >
         <tr >
           <th >#</th>
@@ -35,12 +35,14 @@
           <td>{{ data.cnic }}</td>
           <td>{{ data.vehicleNumber }}</td>
           <td>{{ data.address }}</td>
+         
           <td class="bg-slate-200" > <div class="flex gap-8 justify-center text-base ">
             <i class="fa-regular fa-pen-to-square text-blue-700" (click)="EditDriveDetail(data.id)"></i> 
             
-            <i  class="fa-regular fa-trash-can text-red-700" (click)="deleteDriver(data.id)"></i>
+            <i  nz-popconfirm nzPopconfirmTitle="Sure to delete?" (nzOnConfirm)="deleteDriver(data.id)" class="fa-regular fa-trash-can text-red-700" ></i>
           </div>
       </td>
+      
         </tr>
       </tbody>
     </nz-table>
@@ -114,6 +116,13 @@
           <input type="text" nz-input formControlName="vehicleNumber" placeholder="Enter Vehicle Number" />
           <div *ngIf="submitted && f['vehicleNumber'].errors" class="text-red-600 mt-1">
             <div *ngIf="f['vehicleNumber'].errors['required']">Vehicle Number is required</div>
+          </div>
+        </div>
+        <div class="w-full">
+          <label for="driverPassword" class="text-slate-600">Driver Password</label>
+          <input type="text" nz-input formControlName="driverPassword" placeholder="Set Driver Login Password" />
+          <div *ngIf="submitted && f['driverPassword'].errors" class="text-red-600 mt-1">
+            <div *ngIf="f['driverPassword'].errors['required']">Driver Password is required</div>
           </div>
         </div>
       </div>
