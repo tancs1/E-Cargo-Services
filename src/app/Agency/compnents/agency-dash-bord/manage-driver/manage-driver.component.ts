@@ -9,7 +9,8 @@ interface DataItem {
   vehicleNumber: number;
   address: string;
   phoneNumber: string;
-  id:any
+  id:any,
+  driverPassword:any
 }
 @Component({
   selector: 'app-manage-driver',
@@ -166,7 +167,7 @@ this.coreService.DelDriverDetail(id).subscribe(driver =>{
           phoneNumber:element.phoneNumber,
           cnic:element.cnic,
           vehicleNumber:element.vehicleNumber,
-
+          driverPassword:element.driverPassword,
         })
         this.driverId=element.id
       });

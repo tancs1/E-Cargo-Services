@@ -106,9 +106,28 @@
                         class="w-36 h-8  ml-10 mt-6 px-2 text-base rounded-md cursor-pointer  "
                         (click)="showLarge(item)">View All Details</button>
 
-         <button nz-button nzType="primary" [routerLink]="['/jobTracking', item.id]"
-                        class="w-36 h-8  ml-10 mt-6 px-2 text-base rounded-md cursor-pointer  ">Manage Cargo</button>
+         <!-- <button nz-button nzType="primary" [routerLink]="['/jobTracking', item.id]"
+                        class="w-36 h-8  ml-10 mt-6 px-2 text-base rounded-md cursor-pointer  ">Manage Cargo</button> -->
+         <button nz-button nzType="primary" (click)="showModal()"
+                        class="w-36 h-8  ml-10 mt-6 px-2 text-base rounded-md cursor-pointer  ">Assign Job</button>
+                    
                 </nz-space>
+                <nz-modal [(nzVisible)]="isVisible" nzTitle="Assigne Job" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk(item.id)">
+                    <ng-container *nzModalContent>
+                      <form action="" [formGroup]="driverForm" >
+                          <div class=" w-full flex flex-col sm:mt-8 ">
+                              <label for="">Select Driver to assign job.</label>
+                              <nz-select formControlName="selectedDriver" nzAllowClear nzPlaceHolder="Select a Driver" nzSize="large" class=" w-full  rounded-lg">
+                                <nz-option nzLabel="None" nzValue="none"></nz-option>
+                                <ng-container *ngFor="let item of drivers ">
+                                  <nz-option nzLabel="{{item.fullName}}" [nzValue]="item.id"></nz-option>
+                                
+                                </ng-container>
+                              </nz-select>
+                            </div>
+                            </form>
+                    </ng-container>
+                  </nz-modal>
             </div>
         </div>
     </div>
@@ -177,6 +196,10 @@
         </ng-container>
     </nz-drawer>
 
+
+    <!-- modal -->
+ 
+    
     <div *ngIf="!commonservice.jobAccepted" class="w-full  flex flex-col items-center justify-center ml-10  mt-10 ">
 
         <div class="w-8/12 h-52">

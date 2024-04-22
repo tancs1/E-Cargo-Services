@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CoreService } from 'src/app/core/core.service';
 import { AgencyDashService } from '../agency-dash.service';
-
-
+import { NzSelectSizeType } from 'ng-zorro-antd/select';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 @Component({
   selector: 'app-AgencyDashBord',
   templateUrl: './AgencyDashBord.component.html',
@@ -16,8 +16,15 @@ export class AgencyDashBordComponent implements OnInit {
   jobproc: any;
   jobontheway: any;
   jobdelv: any;
-
-  constructor(public commonservice:AgencyDashService,private coreservice:CoreService, ) { }
+singleValue: any;
+drivers:any=[]
+  driverForm: FormGroup;
+  constructor(public commonservice:AgencyDashService,private coreservice:CoreService,private fb: FormBuilder ) {
+    this.driverForm = this.fb.group({
+    // Require selection of goods type
+      selectedDriver: ['None'] // Optional selection of helper
+    });
+   }
   ngOnInit() {
   debugger
   const loginUser=localStorage.getItem('LoginAgency')
@@ -45,7 +52,14 @@ export class AgencyDashBordComponent implements OnInit {
   this.commonservice.jobDeliverCount$.subscribe(data => {
   this.jobdelv = data
   })
-   
+
+  this.coreservice.getDriverRecord().subscribe(driverRecord => {
+    this.drivers= driverRecord 
+    console.log(driverRecord);
+    console.log(this.drivers);
+    
+    
+})
   }
 
 
@@ -73,4 +87,34 @@ export class AgencyDashBordComponent implements OnInit {
     this.visible = false;
   }
   
+
+  //modal
+  isVisible = false;
+
+  showModal(): void {
+    this.isVisible = true;
+
+ 
+  }
+
+  handleOk(id:any): void {
+    console.log('Button ok clicked!');
+    this.isVisible = false;
+    console.log(this.driverForm.value.selectedDriver);
+    console.log("job Id",id);
+    this.coreservice.getOrderAcceptRecordByIdonly(id).subscribe(data=>{
+      const alljobRecod=data
+      console.log(data);
+      
+    })
+    
+    
+  }
+
+  handleCancel(): void {
+    console.log('Button cancel clicked!');
+    this.isVisible = false;
+  }
+  // drop down
+ 
 }

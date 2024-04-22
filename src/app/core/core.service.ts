@@ -107,6 +107,9 @@ export class CoreService {
   GetDriverDetail(agencyid:any): Observable<any> {
     return this.http.get<any>(`http://localhost:3000/DriverRecords/?AgencyId=${agencyid}`);
   }
+  getDriverRecord(): Observable<any> {
+    return this.http.get<any>(`http://localhost:3000/DriverRecords`);
+  }
   GetDriverDetailById(id:any): Observable<any> {
     return this.http.get<any>(`http://localhost:3000/DriverRecords/${id}`);
   }
@@ -128,6 +131,9 @@ export class CoreService {
   }
   getOrderAcceptRecordById(agencyid:any): Observable<any> {
     return this.http.get<any>(`http://localhost:3000/OrderAccepByAgency/?agencyid=${agencyid}`);
+  }
+  getOrderAcceptRecordByIdonly(id:any): Observable<any> {
+    return this.http.get<any>(`http://localhost:3000/OrderAccepByAgency/${id}`);
   }
   manageCargo(data: any): Observable<any> {
     // Assuming you want to send data to the 'usersBookingRecord' endpoint
