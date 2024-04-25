@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AgencyDashService } from '../../agency-dash-bord/agency-dash.service';
-import { CommonService } from '../auth/common.service';
+import { DriverCommonService } from '../auth/common.service';
 
 @Component({
   selector: 'app-cargoStatus',
@@ -24,7 +24,7 @@ export class CargoStatusComponent implements OnInit {
   DriverContact: any;
   driverVehicleNo: any;
   agencyId: any
-  constructor(private route: ActivatedRoute, private fb: FormBuilder, private commonservice: CommonService) {
+  constructor(private route: ActivatedRoute, private fb: FormBuilder, private commonservice: DriverCommonService ) {
     this.form = this.fb.group({
       trackingId: [],
       cargoStatus: ['Pending', Validators.required],

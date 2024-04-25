@@ -39,7 +39,7 @@ import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { NzAutocompleteModule } from 'ng-zorro-antd/auto-complete';
 import { NzBadgeModule } from 'ng-zorro-antd/badge';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
-import { CommonService } from './auth/common.service';
+import { DriverCommonService } from './auth/common.service';
 import { DriverRoutingModule } from './driver-routing.module';
 import { DriverLoginComponent } from './driverLogin/driverLogin.component';
 import { DriverMainDashComponent } from './driverMainDash/driverMainDash.component';
@@ -91,6 +91,6 @@ import { CoreService } from 'src/app/core/core.service';
     NzToolTipModule,
     NzAutocompleteModule,
     NzPopconfirmModule,
-  ],providers:[CommonService,CoreService]
+  ],providers:[DriverCommonService,CoreService]
 })
 export class DriverModule { }

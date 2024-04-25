@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AgencyDashService } from '../../agency-dash-bord/agency-dash.service';
 import { AuthserviceService } from '../auth/authservice.service';
-import { CommonService } from '../auth/common.service';
+import { DriverCommonService } from '../auth/common.service';
 @Component({
   selector: 'app-DriverHeader',
   templateUrl: './DriverHeader.component.html',
@@ -17,7 +17,7 @@ export class DriverHeaderComponent implements OnInit {
   bookedcount: any;
   authstatus: any;
 
-  constructor(private userAuthService:AuthserviceService, private router:Router ,public commonservice:CommonService) { }
+  constructor(private userAuthService:AuthserviceService, private router:Router ,public commonservice:DriverCommonService) { }
 
   ngOnInit() {
     debugger

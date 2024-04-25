@@ -5,7 +5,7 @@ import { CoreService } from 'src/app/core/core.service';
 @Injectable({
   providedIn: 'root'
 })
-export class CommonService {
+export class DriverCommonService {
   data: any[] = [];
   DriverData:any[]=[]
   userData:any[]=[]
@@ -35,6 +35,7 @@ export class CommonService {
   Delivered: any[] = [];
   ontheWay: any[] = [];
   signupuserdetail: any;
+  
 constructor(private coreservice:CoreService) { }
 getuserrecord(agencyid: any): void {
   this.coreservice.getOrderAcceptRecordById(agencyid).subscribe(
@@ -104,6 +105,8 @@ getuserBookedRecord(userId: any): void {
       if (response && Object.keys(response).length > 0) {
         this.userData.push( response)
                 console.log(this.DriverData);
+                localStorage.removeItem('userdata');
+                localStorage.setItem('userdata', JSON.stringify(response))
       } else {
       }
     },

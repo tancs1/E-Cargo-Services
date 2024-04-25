@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CommonService } from '../auth/common.service';
+import { DriverCommonService } from '../auth/common.service';
 import { AuthserviceService } from '../auth/authservice.service';
 
 @Component({
@@ -17,7 +17,7 @@ export class DriverSideBarComponent implements OnInit {
   jobontheway: any;
   jobdelv: any;
 
-  constructor(public commonservice:CommonService,private userAuthService:AuthserviceService ,private router:Router) { }
+  constructor(public commonservice:DriverCommonService,private userAuthService:AuthserviceService ,private router:Router) { }
 
   ngOnInit( ) {
     this.userAuthService.driverAuthStatus$.subscribe(status => {
