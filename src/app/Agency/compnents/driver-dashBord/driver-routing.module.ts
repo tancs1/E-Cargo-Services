@@ -4,6 +4,7 @@ import { DriverLoginComponent } from './driverLogin/driverLogin.component';
 import { DriverMainDashComponent } from './driverMainDash/driverMainDash.component';
 import { DriverDashComponent } from './driverDash/driverDash.component';
 import { authguardGuard } from './auth/authguard.guard';
+import { CargoStatusComponent } from './cargoStatus/cargoStatus.component';
 
 const routes: Routes = [
 
@@ -12,6 +13,7 @@ const routes: Routes = [
   children:[
     { path: '', redirectTo: 'driver-dashboard', pathMatch: 'full' },
     {path:'driver-dashboard',component:DriverDashComponent},
+    {path:'cargo-status/:id',component:CargoStatusComponent}
  ] },
  {path:'driver-login',component:DriverLoginComponent}
   

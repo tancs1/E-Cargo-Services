@@ -31,11 +31,11 @@
       
 
   </div>
-  <!-- <div *ngIf="commonservice.jobAccepted">
-      <div class="w-full  flex ml-10 justify-center mt-10  " *ngFor="let item of commonservice.data">
+  <div >
+      <div class="w-full  flex ml-10 justify-center mt-10  " *ngFor="let item of data">
           <div class="w-8/12  shadow-md rounded-md bg-white  h-fit  pb-10 ">
               <div class="w-full h-fit bg-white  pt-5 px-5 " style="border-bottom: 1px solid  rgb(196, 196, 196);">
-                  <h3> <img class="w-6  mb-1 text-slate-400" src="../../../../../assets/imges/package.svg"> Accepted
+                  <h3> <img class="w-6  mb-1 text-slate-400" src="../../../../../assets/imges/package.svg"> Assigned
                       Jobs</h3>
               </div>
               <div class="w-full h-fit   flex md:flex-row flex-col justify-between items-center pr-5">
@@ -56,7 +56,7 @@
 
                       <span> <i class="fa-solid fa-id-card mr-1"></i>
 
-                          Refrance Id:ECS{{item.id}}
+                          Refrance Id:ECS{{item.jobid}}
                       </span>
                       <span> <i class="fa-solid fa-id-card mr-1"></i>
 
@@ -65,13 +65,13 @@
 
 
                   </div>
-                  <div class="md:w-6/12 w-full flex md:justify-end items-center md:ml-0 ml-20 mt-5 md:mt-0">
+                  <!-- <div class="md:w-6/12 w-full flex md:justify-end items-center md:ml-0 ml-20 mt-5 md:mt-0">
                       <div
                           class="flex flex-col md:w-28 w-20 h-14 md:h-20 bg-[#f1ede4b0]   rounded-sm shadow-md justify-center items-center">
                           <span class="text-slate-600">Rs. {{item.totalVechialPrice}}</span>
                           <span class="text-slate-400">Job Price</span>
                       </div>
-                  </div>
+                  </div> -->
               </div>
 
 
@@ -81,12 +81,13 @@
                       class="w-36 h-8  ml-10 mt-6 px-2 text-base rounded-md cursor-pointer  "
                       (click)="showLarge(item)">View All Details</button>
 
-       <button nz-button nzType="primary" [routerLink]="['/jobTracking', item.id]"
-                      class="w-36 h-8  ml-10 mt-6 px-2 text-base rounded-md cursor-pointer  ">Manage Cargo</button>
+       <button nz-button nzType="primary" [routerLink]="['/cargo-status', item.jobid]"
+                      class="w-fit h-8  ml-10 mt-6 px-2 text-base rounded-md cursor-pointer  "><i class="fa-solid fa-map mr-1"></i>Manage Cargo Status</button>
               </nz-space>
           </div>
       </div>
-  </div> -->
+      
+  </div>
   <!-- drawer -->
   <nz-drawer [nzSize]="size" [nzVisible]="visible" nzPlacement="right" [nzTitle]="title" (nzOnClose)="close()">
       <ng-container *nzDrawerContent>
@@ -143,9 +144,9 @@
               <div class="flex flex-col mt-2"><span class="font-semibold ">Order Pickup Time </span>
                   <span class="">{{ selectedCartItem?.pickupTime }}</span>
               </div>
-              <div class="flex flex-col mt-2"><span class="font-semibold ">Total Vehicle Price</span>
+              <!-- <div class="flex flex-col mt-2"><span class="font-semibold ">Total Vehicle Price</span>
                   <span class="">Rs.{{ selectedCartItem?.totalVechialPrice }}</span>
-              </div>
+              </div> -->
 
           </div>
 

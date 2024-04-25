@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CoreService } from 'src/app/core/core.service';
 import { AgencyDashService } from '../../agency-dash-bord/agency-dash.service';
 import { CommonService } from '../auth/common.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -17,8 +18,10 @@ export class DriverDashComponent implements OnInit {
   jobproc: any;
   jobontheway: any;
   jobdelv: any;
+  driverId: any;
+  data: any[]=[];
 
-  constructor(public commonservice:CommonService,private coreservice:CoreService, ) { }
+  constructor(public commonservice:CommonService,private coreservice:CoreService,private router:Router ) { }
   ngOnInit() {
   debugger
   const loginUser=localStorage.getItem('LoginDriver')
@@ -28,12 +31,14 @@ export class DriverDashComponent implements OnInit {
     id: any; fullName: any; 
 }) => {
     this.username=element.fullName
-
+this.driverId=element.id
     // this.commonservice.getuserrecord(element.id)
   });
   console.log(this.username);
   
   }
+ this.getallJobs()
+
   // this.commonservice.jobAcceptcountData$.subscribe(data => {
   // this.jobcount = data
   // })
@@ -48,8 +53,11 @@ export class DriverDashComponent implements OnInit {
   // })
    
   }
+  async getallJobs(){
 
-
+    this.data=  await this.coreservice.getOrderAssignToDriverBydriverId(this.driverId).toPromise()
+    
+  }
   // drawer
   visible = false;
   size: 'large'  = 'large';
@@ -57,7 +65,7 @@ export class DriverDashComponent implements OnInit {
   get title(): string {
     return `Job Details`;
   }
-
+ 
  
 
   showLarge(item:any): void {
