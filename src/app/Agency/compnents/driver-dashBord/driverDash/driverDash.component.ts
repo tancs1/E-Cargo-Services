@@ -23,7 +23,7 @@ export class DriverDashComponent implements OnInit {
   jobontheway: any;
   jobdelv: any;
   driverId: any;
-  data: any[]=[];
+  data: any[] = [];
 
   // map variable
   jobId: any;
@@ -49,73 +49,90 @@ export class DriverDashComponent implements OnInit {
   liveLocation: { latitude: number, longitude: number } | undefined;
   liveLocationlatitude: any;
   liveLocationlongitude: any;
-  
-  constructor(public commonservice:DriverCommonService,private coreservice:CoreService,private router:Router,private cityService:CommonService ) { }
+  private locationUpdateInterval: any;
+  marker: any;
+  constructor(public commonservice: DriverCommonService, private coreservice: CoreService, private router: Router, private cityService: CommonService) { }
   ngOnInit() {
-  debugger
-  const loginUser=localStorage.getItem('LoginDriver')
-  if(loginUser) {
-  this.userLoginData=JSON.parse(loginUser)
-  this.userLoginData.forEach((element: {
-    id: any; fullName: any; 
-}) => {
-    this.username=element.fullName
-this.driverId=element.id
-    // this.commonservice.getuserrecord(element.id)
-  });
-  console.log(this.username);
-  
-  }
- this.getallJobs()
-
-  // this.commonservice.jobAcceptcountData$.subscribe(data => {
-  // this.jobcount = data
-  // })
-  // this.commonservice.jobProcessingcount$.subscribe(data => {
-  // this.jobproc = data
-  // })
-  // this.commonservice.jobonthewaycount$.subscribe(data => {
-  // this.jobontheway = data
-  // })
-  // this.commonservice.jobDeliverCount$.subscribe(data => {
-  // this.jobdelv = data
-  // })
-  const userdata = localStorage.getItem('userdata');
-  if (userdata) {
     debugger
+    const loginUser = localStorage.getItem('LoginDriver')
+    if (loginUser) {
+      this.userLoginData = JSON.parse(loginUser)
+      this.userLoginData.forEach((element: {
+        id: any; fullName: any;
+      }) => {
+        this.username = element.fullName
+        this.driverId = element.id
+        // this.commonservice.getuserrecord(element.id)
+      });
+      console.log(this.username);
 
-    const data = JSON.parse(userdata);
-    this.pickuplocation = data.pickupLocation;
-    this.dropoffLocation = data.dropoffLocation;
-    // Wrap the liveLocation value in an Observable
-    this.liveCoordinates$ = of(this.liveLocation);
-    console.log("    this.liveCoordinates$", this.liveCoordinates$);
+    }
+    this.getallJobs()
 
-    this.dropoffCoordinates$ = this.cityService.getCoordinates(this.dropoffLocation);
-    console.log("this.dropoffCoordinates$ ", this.dropoffCoordinates$);
+    // this.commonservice.jobAcceptcountData$.subscribe(data => {
+    // this.jobcount = data
+    // })
+    // this.commonservice.jobProcessingcount$.subscribe(data => {
+    // this.jobproc = data
+    // })
+    // this.commonservice.jobonthewaycount$.subscribe(data => {
+    // this.jobontheway = data
+    // })
+    // this.commonservice.jobDeliverCount$.subscribe(data => {
+    // this.jobdelv = data
+    // })
+    const userdata = localStorage.getItem('userdata');
+    if (userdata) {
+      debugger
 
+      const data = JSON.parse(userdata);
+      this.pickuplocation = data.pickupLocation;
+      this.dropoffLocation = data.dropoffLocation;
+      this.jobId = data.id
+      // Wrap the liveLocation value in an Observable
+      this.liveCoordinates$ = of(this.liveLocation);
+      console.log("    this.liveCoordinates$", this.liveCoordinates$);
+
+      this.dropoffCoordinates$ = this.cityService.getCoordinates(this.dropoffLocation);
+      console.log("this.dropoffCoordinates$ ", this.dropoffCoordinates$);
+
+    }
+   
+    this.startLiveLocationUpdates();
+    this.commonservice.getmanageCargo(this.jobId)
   }
-  this.initMap();
-  this.getLiveLocation()
-this.drawRoute()
+  startLiveLocationUpdates() {
+    this.locationUpdateInterval = setInterval(() => {
+      this.initMap();
+      this.getLiveLocation()
+      this.drawRoute()
+    }, 5000); // Update every 5 seconds, adjust interval as needed
   }
-  async getallJobs(){
+  stopLiveLocationUpdates() {
+    // Clear the interval when component is destroyed or no longer needed
+    clearInterval(this.locationUpdateInterval);
+  }
+  ngOnDestroy() {
+    // Make sure to stop the interval when the component is destroyed
+    this.stopLiveLocationUpdates();
+  }
+  async getallJobs() {
 
-    this.data=  await this.coreservice.getOrderAssignToDriverBydriverId(this.driverId).toPromise()
-    
+    this.data = await this.coreservice.getOrderAssignToDriverBydriverId(this.driverId).toPromise()
+
   }
   // drawer
   visible = false;
-  size: 'large'  = 'large';
+  size: 'large' = 'large';
 
   get title(): string {
     return `Job Details`;
   }
- 
- 
 
-  showLarge(item:any): void {
-    this.selectedCartItem =item
+
+
+  showLarge(item: any): void {
+    this.selectedCartItem = item
     this.size = 'large';
     this.open();
   }
@@ -127,104 +144,139 @@ this.drawRoute()
   close(): void {
     this.visible = false;
   }
-  
+
   // map logic
+
+
+
+
+  private initMap(): void {
+ 
+    var greenIcon = L.icon({
+      iconUrl: '../../../../../assets/imges/46831-removebg-preview.png',
+      // shadowUrl: 'leaf-shadow.png',
   
-
-
-
-private initMap(): void {
-  this.map = L.map('map').setView([0, 0], 10);
-
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '© OpenStreetMap contributors'
-  }).addTo(this.map);
-  
-  debugger
-
-  
-
-
-
-  this.dropoffCoordinates$.subscribe(coordinates => {
-    if (coordinates) {
-      debugger
-      console.log("drop", coordinates);
-
-      L.marker([coordinates.latitude, coordinates.longitude]).addTo(this.map)
-        .bindPopup('Drop-off Location').openPopup();
-    }
+      iconSize:     [70, 80], // size of the icon
+      shadowSize:   [50, 64], // size of the shadow
+      iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+      // shadowAnchor: [4, 62],  // the same for the shadow
+      popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
   });
-}
+    this.map = L.map('map').setView([0, 0], 10);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(this.map);
+
+    debugger
+    if (this.marker) {
+      this.map.removeLayer(this.marker);
+    }
 
 
 
-onClick(imageType: string): void {
-  if (imageType === 'prof') {
-    this.src = this.deliveryProf;
-    this.show = true
-  } else if (imageType === 'sign') {
-    this.src = this.ReciverSignature;
-  }
 
+    this.dropoffCoordinates$.subscribe(coordinates => {
+      if (coordinates) {
+        debugger
+        console.log("drop", coordinates);
 
-}
-getLiveLocation() {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        console.log("position", position);
-
-        const latitude = position.coords.latitude;
-        this.liveLocationlatitude = latitude
-        console.log("latitude", typeof latitude);
-
-        const longitude = position.coords.longitude;
-        console.log("longitude", longitude);
-
-        this.liveLocationlongitude = longitude
-        this.liveLocation = { latitude, longitude };
-        console.log('Live location:', this.liveLocation);
-        if (this.liveLocationlatitude) {
-          L.marker([this.liveLocationlatitude, this.liveLocationlongitude]).addTo(this.map).bindPopup('Pick-up Location').openPopup();
-        }
-      },
-      (error) => {
-        console.error('Error getting live location:', error.message);
+         L.marker([coordinates.latitude, coordinates.longitude],{icon: greenIcon}).addTo(this.map)
+          .bindPopup('Drop-off Location').openPopup();
       }
-    );
-  } else {
-    console.error('Geolocation is not supported by this browser.');
+    });
   }
-}
-drawRoute(): void {
+
+
+
+  onClick(imageType: string): void {
+    if (imageType === 'prof') {
+      this.src = this.deliveryProf;
+      this.show = true
+    } else if (imageType === 'sign') {
+      this.src = this.ReciverSignature;
+    }
+
+
+  }
+  getLiveLocation() {
+    var drivericon = L.icon({
+      iconUrl: '../../../../../assets/imges/8221800-removebg-preview.png',
+      // shadowUrl: 'leaf-shadow.png',
+  
+      iconSize:     [70, 80], // size of the icon
+      shadowSize:   [50, 64], // size of the shadow
+      iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+      // shadowAnchor: [4, 62],  // the same for the shadow
+      popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+  });
+    debugger
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          console.log("position", position);
+
+          const latitude = position.coords.latitude;
+          this.liveLocationlatitude = latitude
+          console.log("latitude", typeof latitude);
+
+          const longitude = position.coords.longitude;
+          console.log("longitude", longitude);
+
+          this.liveLocationlongitude = longitude
+          this.liveLocation = { latitude, longitude };
+
+
+
+
+          console.log('Live location:', this.liveLocation);
+          if (this.liveLocationlatitude) {
+            L.marker([this.liveLocationlatitude, this.liveLocationlongitude],{icon: drivericon}).addTo(this.map).bindPopup('Driver current location').openPopup();
+            const jobdata = this.commonservice.managecargodata.find((data: any) => data.trackingId === this.jobId)
+            if (jobdata) {
+              jobdata.driverLocation = this.liveLocation
+              this.commonservice.updateManageCartgo(jobdata?.id, jobdata);
+            }
+          }
+
+        },
+        (error) => {
+          console.error('Error getting live location:', error.message);
+        }
+      );
+    } else {
+      console.error('Geolocation is not supported by this browser.');
+    }
+  }
+  drawRoute(): void {
 
     this.dropoffCoordinates$.subscribe(dropoffCoordinates => {
       if (dropoffCoordinates) {
-        
-        if(this.liveLocation && this.liveLocation.latitude && this.liveLocation.longitude && this.dropoffCoordinates$){
+
+        if (this.liveLocation && this.liveLocation.latitude && this.liveLocation.longitude && this.dropoffCoordinates$) {
           const pickUpLatLng = L.latLng(this.liveLocation.latitude, this.liveLocation.longitude);
           const dropOffLatLng = L.latLng(dropoffCoordinates.latitude, dropoffCoordinates.longitude);
-          
 
-        // Clear previous routes if any
-        if (this.map) {
-          this.map.eachLayer((layer:any) => {
-            if (layer instanceof (L as any).Routing.Control) {
-              this.map.removeControl(layer);
-            }
-          });
-        }
 
-        // Create a routing control and add it to the map
-        (L as any).Routing.control({
-          waypoints: [pickUpLatLng, dropOffLatLng],
-          routeWhileDragging: true
-        }).addTo(this.map);
+          // Clear previous routes if any
+          if (this.map) {
+            this.map.eachLayer((layer: any) => {
+              if (layer instanceof (L as any).Routing.Control) {
+                this.map.removeControl(layer);
+              }
+            });
+          }
+
+          // Create a routing control and add it to the map
+          (L as any).Routing.control({
+            waypoints: [pickUpLatLng, dropOffLatLng],
+            routeWhileDragging: true
+          }).addTo(this.map);
         }
       }
     });
-  
-}}
+
+  }
+}
 
 
