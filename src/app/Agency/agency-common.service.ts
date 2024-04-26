@@ -150,7 +150,7 @@ getAllJobs() {
     this.curentCartdata.agencyid = this.agencyid;
     this.curentCartdata.jobid = this.curentCartdata.id;
     this.curentCartdata.id = randomFourDigitNumber;
-    this.curentCartdata.status = 'pending';
+    this.curentCartdata.status = 'Pending';
   
     const order = this.curentCartdata;
   

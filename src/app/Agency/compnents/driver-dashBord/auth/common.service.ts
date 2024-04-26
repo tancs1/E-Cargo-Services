@@ -126,7 +126,7 @@ getmanageCargo(jobId: any): void {
         localStorage.setItem('managecargodata', '')
         localStorage.setItem('managecargodata', JSON.stringify(response))
         console.log(response);
-        // alert('data fetched successfully')
+        alert('data fetched successfully')
 
 
       } else {

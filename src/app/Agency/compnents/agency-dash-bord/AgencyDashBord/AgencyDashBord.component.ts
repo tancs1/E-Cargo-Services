@@ -74,7 +74,7 @@ export class AgencyDashBordComponent implements OnInit {
 
   }
   getAllDriverData() {
-    this.coreservice.getDriverRecord().subscribe(driverRecord => {
+    this.coreservice.GetDriverDetail(this.agencyId).subscribe(driverRecord => {
       // this.drivers = driverRecord
 
       this.drivers = driverRecord.filter((driver: any) => {
@@ -118,8 +118,13 @@ export class AgencyDashBordComponent implements OnInit {
 
   showModal(jobid:any,type:any): void {
     this.isVisible = true;
-this.jobId=jobid
-this.assignType=type
+    if(this.drivers.length!=0){
+
+      this.jobId=jobid
+      this.assignType=type
+    }else{
+      this.message.create('info', 'No Driver Available');
+    }
 
   }
 

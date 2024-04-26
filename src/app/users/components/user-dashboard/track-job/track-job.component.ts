@@ -39,6 +39,9 @@ export class TrackJobComponent implements OnInit {
   liveLocation: { latitude: number, longitude: number } | undefined;
   liveLocationlatitude: any;
   liveLocationlongitude: any;
+  private locationUpdateInterval: any;
+  dropoffCoordinates: any;
+  mangcargoData: any;
   constructor(private route: ActivatedRoute, private commonservice: DashCommonService, private nzImageService: NzImageService, private cityService: CommonService) { }
   ngOnInit() {
     debugger
@@ -52,31 +55,37 @@ export class TrackJobComponent implements OnInit {
     });
     // Assuming you want to display the date and time of the first element in managecargodata
 
-
-
-    this.commonservice.managecargodata.forEach((element: {
+    // const trackingData = this.commonservice.managecargodata // Get the first element
+    const dataForTracking= localStorage.getItem('trackingdata')
+    if(dataForTracking){
+      this.mangcargoData=JSON.parse(dataForTracking)
+    }
+    
+    this.mangcargoData.forEach((element: {
       trackingId: any;
       id: any;
     }) => {
-
+      
       // this.cargoId=element.id; 
       this.trackingid = element.trackingId
       // alert(this.cargoId); 
-
-
+      
+      
     });
     if (this.trackingid === this.jobId) {
-      const element = this.commonservice.managecargodata[0]; // Get the first element
+      const trackingData = this.mangcargoData[0]; // Get the first element
+      
 
-      const date = new Date(element.currentDate);
-      const time = new Date(element.pickuptime);
+      const date = new Date(trackingData.currentDate);
+      const time = new Date(trackingData.pickuptime);
       this.datePickup = date.toLocaleDateString('en-US');
       this.timePickup = time.toLocaleTimeString('en-US');
-      this.deliveryProf = element.deliveryProof
+      this.deliveryProf = trackingData.deliveryProof
       console.log(this.deliveryProf);
-      this.ReciverSignature = element.reciverSignature
+      this.ReciverSignature = trackingData.reciverSignature
       console.log(this.ReciverSignature);
-      this.status = element.cargoStatus
+      this.status = trackingData.cargoStatus
+      
       if (this.status === 'Processing') {
         this.curentvalue = 3
       } else if (this.status === 'On the Way') {
@@ -86,9 +95,30 @@ export class TrackJobComponent implements OnInit {
       } else {
         this.curentvalue = 1
       }
+      this.map = L.map('map').setView([0, 0], 10);
+      this.refresh()
     }
 
+    // this.startLiveLocationUpdates()
+   
+    // this.initMap();
+ // Schedule the function to run automatically every five seconds
+ 
+  // this.startLiveLocationUpdates()
 
+
+    // this.getLiveLocation()
+// this.drawRoute()
+  }
+  refresh(){
+    this.getmapData()
+    this.initMap();
+    console.log('setinterval call');
+    
+    // this.getLiveLocation()
+    this.drawRoute()
+   }
+  getmapData(){
     const userdata = localStorage.getItem('userdata');
     if (userdata) {
       debugger
@@ -97,20 +127,28 @@ export class TrackJobComponent implements OnInit {
       this.pickuplocation = data.pickupLocation;
       this.dropoffLocation = data.dropoffLocation;
       // Wrap the liveLocation value in an Observable
-      const trackingdata=this.commonservice.managecargodata.find((filter:any)=>filter.trackingId ===data.id)
+      const trackingdata=this.mangcargoData.find((filter:any)=>filter.trackingId ===data.id)
       this.liveCoordinates$ = of(trackingdata.driverLocation);
       console.log("    this.liveCoordinates$", this.liveCoordinates$);
+this.liveCoordinates$.subscribe((driverData)=>{
+console.log('driverData', driverData);
+this.liveLocation=driverData
 
+})
       this.dropoffCoordinates$ = this.cityService.getCoordinates(this.dropoffLocation);
-      console.log("this.dropoffCoordinates$ ", this.dropoffCoordinates$);
+      this.dropoffCoordinates$.subscribe(data=>{
+        console.log('dropData',data);
+        this.dropoffCoordinates=data
+        
+      })
+      // console.log("this.dropoffCoordinates$ ", this.dropoffCoordinates$);
 
     }
-    this.initMap();
-    // this.getLiveLocation()
-this.drawRoute()
   }
 
 
+
+ 
   private initMap(): void {
     var drivericon = L.icon({
       iconUrl: '../../../../../assets/imges/8221800-removebg-preview.png',
@@ -132,7 +170,7 @@ this.drawRoute()
     // shadowAnchor: [4, 62],  // the same for the shadow
     popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
 });
-    this.map = L.map('map').setView([0, 0], 10);
+   
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '© OpenStreetMap contributors'
@@ -156,7 +194,7 @@ this.drawRoute()
     this.liveCoordinates$.subscribe(coordinates => {
       if (coordinates) {
         debugger
-        console.log("drop", coordinates);
+        console.log("driver", coordinates);
 
         L.marker([coordinates.latitude, coordinates.longitude],{icon: drivericon}).addTo(this.map)
           .bindPopup('Driver Location').openPopup();
@@ -204,36 +242,74 @@ this.drawRoute()
   //   } else {
   //     console.error('Geolocation is not supported by this browser.');
   //   }
-  // }
-  drawRoute(): void {
+  // // }
+  // drawRoute(): void {
+  // debugger
+  // this.dropoffCoordinates$.subscribe(coordinates=>{
+    
+  // })
+  // console.log();
   
-      this.dropoffCoordinates$.subscribe(dropoffCoordinates => {
-        if (dropoffCoordinates) {
+  //     this.dropoffCoordinates$.subscribe(coordinates => {
+  //       if (coordinates) {
           
-          if(this.liveLocation && this.liveLocation.latitude && this.liveLocation.longitude && this.dropoffCoordinates$){
-            const pickUpLatLng = L.latLng(this.liveLocation.latitude, this.liveLocation.longitude);
-            const dropOffLatLng = L.latLng(dropoffCoordinates.latitude, dropoffCoordinates.longitude);
+  //         if(this.liveLocation && this.liveLocation.latitude && this.liveLocation.longitude && this.dropoffCoordinates$){
+  //           const pickUpLatLng = L.latLng(this.liveLocation.latitude, this.liveLocation.longitude);
+  //           const dropOffLatLng = L.latLng(coordinates.latitude, coordinates.longitude);
             
   
-          // Clear previous routes if any
-          if (this.map) {
-            this.map.eachLayer((layer:any) => {
-              if (layer instanceof (L as any).Routing.Control) {
-                this.map.removeControl(layer);
-              }
-            });
-          }
+  //         // Clear previous routes if any
+  //         if (this.map) {
+  //           this.map.eachLayer((layer:any) => {
+  //             if (layer instanceof (L as any).Routing.Control) {
+  //               this.map.removeControl(layer);
+  //             }
+  //           });
+  //         }
   
-          // Create a routing control and add it to the map
-          (L as any).Routing.control({
-            waypoints: [pickUpLatLng, dropOffLatLng],
-            routeWhileDragging: true
-          }).addTo(this.map);
-          }
-        }
-      });
+  //         // Create a routing control and add it to the map
+  //         (L as any).Routing.control({
+  //           waypoints: [pickUpLatLng, dropOffLatLng],
+  //           routeWhileDragging: true
+  //         }).addTo(this.map);
+  //         }
+  //       }
+  //     });
     
+  // }
+  drawRoute(): void {
+    this.dropoffCoordinates$.subscribe(dropoffCoordinates => {
+      if (this.dropoffCoordinates && this.liveLocation && this.liveLocation.latitude && this.liveLocation.longitude) {
+        const pickUpLatLng = L.latLng(this.liveLocation.latitude, this.liveLocation.longitude);
+        const dropOffLatLng = L.latLng(this.dropoffCoordinates.latitude, this.dropoffCoordinates.longitude);
+  
+        // Clear previous routes if any
+        if (this.map) {
+          this.map.eachLayer((layer: any) => {
+            if (layer instanceof (L as any).Routing.Control) {
+              this.map.removeControl(layer);
+            }
+          });
+        }
+  
+        // Create a routing control and add it to the map
+        const control = (L as any).Routing.control({
+          waypoints: [
+            L.latLng(this.liveLocation.latitude, this.liveLocation.longitude),
+            L.latLng(this.dropoffCoordinates.latitude, this.dropoffCoordinates.longitude)
+          ],
+          routeWhileDragging: true,
+          
+          
+        }).addTo(this.map);
+  
+        // Fit the map bounds to the route
+        const bounds = L.latLngBounds([pickUpLatLng, dropOffLatLng]);
+        this.map.fitBounds(bounds);
+      }
+    });
   }
+  
   
   
 

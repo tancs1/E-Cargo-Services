@@ -62,7 +62,18 @@
     </div>
   </div>
 </div>
-<div class="w-full h-[70vh] flex justify-center items-center mb-20 ">
+<div *ngIf="trackingid === jobId"  class="w-full flex justify-center">
+  <div class="w-8/12 text-center mt-10  flex justify-center "> 
+ <div class="w-8/12 flex justify-end mr-20">   <h2 class="text-3xl font-semibold ">Job Tracking Map</h2></div>
+    <button  (click)="refresh()"  nz-button nzSize="default" nzType="primary" class=" h-8  ml-28  px-2 text-base rounded-md cursor-pointer  ">ReFresh Map
+  
+  </button>
+  
+   </div>
+</div>
+<div *ngIf="trackingid != jobId" class="w-full text-center"> <h2 class="text-3xl font-semibold ">No Map Data Found</h2></div>
+ <div class="w-full  ml-10 mt-10  h-[70vh] flex justify-center items-center mb-20 ">
+      
   <div  id="map"  class="w-2/3 h-full"></div>
 </div>
 

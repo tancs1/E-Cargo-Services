@@ -47,8 +47,11 @@ getmanageCargo(userId: any): void {
       if (response && Object.keys(response).length > 0) {
         // this.managecargodata=[]
         this.managecargodata = response;
+        localStorage.setItem('trackingData', '')
+        localStorage.setItem('trackingdata', JSON.stringify(  this.managecargodata));
+
         console.log(response);
-        alert('data fetched successfully')
+        // alert('data fetched successfully')
         
         
       } else {

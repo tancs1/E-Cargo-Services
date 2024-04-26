@@ -105,7 +105,9 @@
 
 
                 <nz-space>
-
+                    <button  [routerLink]="['/jobTracking', item.jobid]"  nz-button nzSize="default" nzType="primary" class="w-36 h-8  ml-10 mt-6 px-2 text-base rounded-md cursor-pointer  "> Track Job 
+                        <i class="fa fa-search ml-2" aria-hidden="true"></i> 
+                    </button>
                     <button *nzSpaceItem nz-button nzType="primary"
                         class="w-36 h-8  ml-10 mt-6 px-2 text-base rounded-md cursor-pointer  "
                         (click)="showLarge(item)">View All Details</button>
@@ -137,7 +139,6 @@
                     </ng-container>
                   </nz-select> -->
                   <nz-select formControlName="selectedDriver" nzAllowClear nzPlaceHolder="Select a Driver" nzSize="large" class="w-full rounded-lg">
-                    <nz-option nzLabel="None" nzValue="none"></nz-option>
                     <!-- <ng-container *ngIf="driverJobIds.includes(item.id)"> -->
                     <ng-container *ngFor="let driver of drivers">
                         <nz-option nzLabel="{{ driver.fullName }}" [nzValue]="driver.id "></nz-option>

@@ -70,8 +70,8 @@ this.agencyId=element.AgencyId
       console.log('Job ID:', this.jobId);
       this.commonservice.getmanageCargo(this.jobId);
 
-      this.loadData();
     });
+    this.loadData();
 
 
 

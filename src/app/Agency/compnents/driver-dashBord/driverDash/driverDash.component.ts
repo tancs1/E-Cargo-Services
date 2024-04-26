@@ -81,6 +81,32 @@ export class DriverDashComponent implements OnInit {
     // this.commonservice.jobDeliverCount$.subscribe(data => {
     // this.jobdelv = data
     // })
+   
+   this.userData()
+    this.map = L.map('map').setView([0, 0], 10);
+    this.startLiveLocationUpdates();
+    this.commonservice.getmanageCargo(this.jobId)
+  }
+ 
+  startLiveLocationUpdates() {
+    this.locationUpdateInterval = setInterval(() => {
+      this.userData
+      this.initMap();
+      console.log('callinterval');
+      
+      this.getLiveLocation()
+      this.drawRoute()
+    }, 5000); // Update every 5 seconds, adjust interval as needed
+  }
+  stopLiveLocationUpdates() {
+    // Clear the interval when component is destroyed or no longer needed
+    clearInterval(this.locationUpdateInterval);
+  }
+  ngOnDestroy() {
+    // Make sure to stop the interval when the component is destroyed
+    this.stopLiveLocationUpdates();
+  }
+  userData(){
     const userdata = localStorage.getItem('userdata');
     if (userdata) {
       debugger
@@ -97,24 +123,6 @@ export class DriverDashComponent implements OnInit {
       console.log("this.dropoffCoordinates$ ", this.dropoffCoordinates$);
 
     }
-   
-    this.startLiveLocationUpdates();
-    this.commonservice.getmanageCargo(this.jobId)
-  }
-  startLiveLocationUpdates() {
-    this.locationUpdateInterval = setInterval(() => {
-      this.initMap();
-      this.getLiveLocation()
-      this.drawRoute()
-    }, 5000); // Update every 5 seconds, adjust interval as needed
-  }
-  stopLiveLocationUpdates() {
-    // Clear the interval when component is destroyed or no longer needed
-    clearInterval(this.locationUpdateInterval);
-  }
-  ngOnDestroy() {
-    // Make sure to stop the interval when the component is destroyed
-    this.stopLiveLocationUpdates();
   }
   async getallJobs() {
 
@@ -162,7 +170,7 @@ export class DriverDashComponent implements OnInit {
       // shadowAnchor: [4, 62],  // the same for the shadow
       popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
   });
-    this.map = L.map('map').setView([0, 0], 10);
+    
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '© OpenStreetMap contributors'
@@ -262,6 +270,7 @@ export class DriverDashComponent implements OnInit {
           if (this.map) {
             this.map.eachLayer((layer: any) => {
               if (layer instanceof (L as any).Routing.Control) {
+                
                 this.map.removeControl(layer);
               }
             });
@@ -272,6 +281,9 @@ export class DriverDashComponent implements OnInit {
             waypoints: [pickUpLatLng, dropOffLatLng],
             routeWhileDragging: true
           }).addTo(this.map);
+           // Fit the map bounds to the route
+        const bounds = L.latLngBounds([pickUpLatLng, dropOffLatLng]);
+        this.map.fitBounds(bounds);
         }
       }
     });
