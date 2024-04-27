@@ -84,8 +84,8 @@
       <nz-step nzTitle="Processing" nzDescription=""></nz-step>
       <nz-step nzTitle="On The Way" nzDescription=""></nz-step>
       <nz-step nzTitle="Drop off Completed" nzDescription=""></nz-step>
-   <nz-step nzTitle="Delivery Proof:" nzDescription="View imge" class=""(click)="onClick('prof')"> </nz-step>
-      <nz-step nzTitle="Receiver Signature:" nzDescription="View imge" class=""(click)="onClick('sign')"></nz-step>
+   <nz-step class="cursor-pointer" nzTitle="Delivery Proof:" nzDescription="View imge" class=""(click)="onClick('prof')"> </nz-step>
+      <nz-step class="cursor-pointer" nzTitle="Receiver Signature:" nzDescription="View imge" class=""(click)="onClick('sign')"></nz-step>
     </nz-steps></div>
     </div>
     
@@ -93,9 +93,10 @@
       </div>
     </div>
   </div>
-  <img [src]="deliveryProf" alt="">
+ 
 
 <div *ngIf="show" class="relative z-50" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+
   <!--
     Background backdrop, show/hide based on modal state.
 
@@ -109,8 +110,10 @@
   <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
 
   <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+    <span class="absolute right-7 top-4" (click)="hideimgModal()" type="button"><i class="fa-regular fa-rectangle-xmark text-3xl text-slate-200 hover:text-red-400 "></i></span>
     <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
       <!--
+        
         Modal panel, show/hide based on modal state.
 
         Entering: "ease-out duration-300"
@@ -121,8 +124,11 @@
           To: "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
       -->
       <div class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
-        <img src={{deliveryProf}} alt="">
-        
+        <img src={{src}} alt="">
+<div class="w-full text-center">
+  
+  <span class=" text-2xl ">{{text}}</span>
+</div>
       </div>
     </div>
   </div>

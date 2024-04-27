@@ -12,7 +12,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 
 import { NzImageService } from 'ng-zorro-antd/image';
 import { CommonService } from 'src/app/common.service';
-import { DashCommonService } from 'src/app/users/components/user-dashboard/dash-common.service';
+
 
 @Component({
   selector: 'app-JobTracking',
@@ -20,143 +20,7 @@ import { DashCommonService } from 'src/app/users/components/user-dashboard/dash-
   styleUrls: ['./JobTracking.component.css']
 })
 export class JobTrackingComponent implements OnInit {
-//   time = new Date();
 
-//   jobId: any;
-//   form!: FormGroup;
-//   userLoginData: any;
-//   cargoId: any;
-//   trackingid: any;
-//   managecargodata:[]=[]
-//   constructor(private route: ActivatedRoute, private fb: FormBuilder, private commonservice: AgencyDashService) {
-//     this.form = this.fb.group({
-//       trackingId: [],
-//       cargoStatus: ['Pending', Validators.required],
-//       cargoLocation: ['', Validators.required],
-//       driverName: ['', Validators.required],
-//       vehicleNumber: ['', Validators.required],
-//       driverContact: ['', [Validators.required]],
-//       currentDate: ['', Validators.required],
-//       pickuptime: ['', Validators.required],
-//       deliveryProof: [''],
-//       reciverSignature: ['']
-//     });
-//   }
-
-//   ngOnInit(): void {
-//     debugger
-//     this.route.paramMap.subscribe(params => {
-//       // Retrieve the ID from the route parameters
-//       this.jobId = params.get('id');
-//       console.log('Job ID:', this.jobId);
-//       this.commonservice.getmanageCargo(this.jobId);
-
-//       this.loadData();
-//     });
-
-
-
-
-
-//   }
-
-//   loadData() {
-//     const data = localStorage.getItem('managecargodata');
-//     if (data) {
-
-//       this.managecargodata = JSON.parse(data);
-//       this.managecargodata.forEach((element: {
-//         trackingId: any;
-//         id: any;
-//       }) => {
-
-//         this.cargoId = element.id;
-//         this.trackingid = element.trackingId
-//         alert(this.cargoId);
-
-
-//       });
-//     }
-//     if (this.trackingid === this.jobId) {
-//       const cargoData = this.commonservice.managecargodata[0]; // Get the first item from managecargodata
-//       this.form.patchValue({
-//         trackingId: cargoData.trackingId,
-//         cargoStatus: cargoData.cargoStatus,
-//         cargoLocation: cargoData.cargoLocation,
-//         driverName: cargoData.driverName,
-//         vehicleNumber: cargoData.vehicleNumber,
-//         driverContact: cargoData.driverContact,
-//         currentDate: cargoData.currentDate,
-//         pickuptime: cargoData.pickuptime,
-//         deliveryProof: cargoData.deliveryProof,
-//         reciverSignature: cargoData.reciverSignature
-//       });
-//     }
-//     // Find the specific job object
-//     const loginUser = localStorage.getItem('LoginAgency')
-//     if (loginUser) {
-//       this.userLoginData = JSON.parse(loginUser)
-//       this.userLoginData.forEach((element: {
-//         id: any; fullname: any;
-//       }) => {
-
-//         this.commonservice.getuserrecord(element.id)
-
-//       });
-
-//     }
-//   }
-//   onsubmit(): void {
-//     debugger
-//     if (this.form.valid) {
-//       this.form.patchValue({
-//         trackingId: this.jobId
-//       })
-//       const formData = this.form.value;
-//       if (this.commonservice.managecargodata.length > 0) {
-
-
-//         this.commonservice.updateManageCartgo(this.cargoId, formData)
-//         alert('updateManageCartgo')
-//       } else {
-
-//         this.commonservice.managecargoTracking(formData)
-//         alert("manageCartgoTracking")
-//         console.log("managecargotracking");
-
-
-
-//       }
-
-
-//       const specificJob = this.commonservice.data.find((job: { id: any; }) => job.id === this.jobId);
-
-//       if (specificJob) {
-//         // Update the status of the job
-//         // Assuming form is your FormGroup instance
-//         const cargoStatusValue = this.form.get('cargoStatus')?.value;
-
-//         specificJob.status = cargoStatusValue
-
-
-//         this.commonservice.updateJobStatus(this.jobId, specificJob)
-
-//         this.commonservice.managecargodata = []
-//       } else {
-//         console.log('No job found with ID:', this.jobId);
-//       }
-
-//       // Handle form submission, for example, send data to the server
-//       console.log(formData);
-//       alert("form submission")
-//     } else {
-//       // Mark all form controls as touched to display validation messages
-
-//     }
-
-//   }
-
-// }
 jobId: any;
 pickupdate: any;
 pickuptime: any;
@@ -183,6 +47,7 @@ liveLocationlongitude: any;
 private locationUpdateInterval: any;
 dropoffCoordinates: any;
 mangcargoData: any;
+  text: string | undefined;
 constructor(private route: ActivatedRoute, private commonservice: AgencyDashService, private nzImageService: NzImageService, private cityService: CommonService,private message:NzMessageService) { }
 ngOnInit() {
   debugger
@@ -190,70 +55,72 @@ ngOnInit() {
     // Retrieve the ID from the route parameters
     this.jobId = params.get('id');
     console.log('Job ID:', this.jobId);
-    this.commonservice.getmanageCargo(this.jobId);
-    this.commonservice.getUserBookingReacodByID(this.jobId);
-
-  });
-  // Assuming you want to display the date and time of the first element in managecargodata
- 
-  // const trackingData = this.commonservice.managecargodata // Get the first element
-  const dataForTracking= localStorage.getItem('trackingdata')
-  if(dataForTracking){
-    this.mangcargoData=JSON.parse(dataForTracking)
-  }
-  
-  this.mangcargoData.forEach((element: {
-    trackingId: any;
-    id: any;
-  }) => {
-    
-    // this.cargoId=element.id; 
-    this.trackingid = element.trackingId
-    // alert(this.cargoId); 
-    
     
   });
-  if (this.trackingid === this.jobId) {
-    const trackingData = this.mangcargoData[0]; // Get the first element
-    
+  this.fetchData(); 
 
-    const date = new Date(trackingData.currentDate);
-    const time = new Date(trackingData.pickuptime);
-    this.datePickup = date.toLocaleDateString('en-US');
-    this.timePickup = time.toLocaleTimeString('en-US');
-    this.deliveryProf = trackingData.deliveryProof
-    console.log(this.deliveryProf);
-    this.ReciverSignature = trackingData.reciverSignature
-    console.log(this.ReciverSignature);
-    this.status = trackingData.cargoStatus
-    if (this.status === 'Processing') {
-      this.curentvalue = 3
-    } else if (this.status === 'On the Way') {
-      this.curentvalue = 4
-    } else if (this.status === 'Delivered') {
-      this.curentvalue = 7
-    } else {
-      this.curentvalue = 1
-    }
-    this.map = L.map('map').setView([0, 0], 10);
-    this.refresh()
-  }else{
-    this.message.create('info', 'No Tracking Data Available');
-  }
-
-  
-  // this.startLiveLocationUpdates()
- 
-  // this.initMap();
-// Schedule the function to run automatically every five seconds
-
-// this.startLiveLocationUpdates()
-
- 
-
-  // this.getLiveLocation()
-// this.drawRoute()
 }
+async fetchData() {
+  try {
+    await this.commonservice.getmanageCargo(this.jobId);
+  this.commonservice.getUserBookingReacodByID(this.jobId);// Wait for getmanageCargo to complete
+    this.checkTracking(); // Call checkTracking after getmanageCargo
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
+}
+async checkTracking() {
+  try {
+    const dataForTracking= localStorage.getItem('managecargodata') // managecargodata
+    if(dataForTracking){
+      this.mangcargoData=JSON.parse(dataForTracking)
+    }
+    this.commonservice.managecargodata$.subscribe((data)=>{
+      this.mangcargoData=data
+    })
+    this.mangcargoData.forEach((element: {
+      trackingId: any;
+      id: any;
+    }) => {
+      
+      // this.cargoId=element.id; 
+      this.trackingid = element.trackingId
+      // alert(this.cargoId); 
+      
+      
+    });
+    if (this.trackingid === this.jobId) {
+      const trackingData = this.mangcargoData[0]; // Get the first element
+      
+  
+      const date = new Date(trackingData.currentDate);
+      const time = new Date(trackingData.pickuptime);
+      this.datePickup = date.toLocaleDateString('en-US');
+      this.timePickup = time.toLocaleTimeString('en-US');
+      this.deliveryProf = trackingData.deliveryProof
+      console.log(this.deliveryProf);
+      this.ReciverSignature = trackingData.reciverSignature
+      console.log(this.ReciverSignature);
+      this.status = trackingData.cargoStatus
+      if (this.status === 'Processing') {
+        this.curentvalue = 3
+      } else if (this.status === 'On the Way') {
+        this.curentvalue = 4
+      } else if (this.status === 'Delivered') {
+        this.curentvalue = 7
+      } else {
+        this.curentvalue = 1
+      }
+      this.map = L.map('map').setView([0, 0], 10);
+      this.refresh()
+    }else{
+      this.message.create('info', 'No Tracking Data Available');
+    }
+  } catch (error) {
+    console.error('Error checking tracking:', error);
+  }
+  }
+
 refresh(){
   this.getmapData()
   this.initMap();
@@ -355,14 +222,30 @@ var greenIcon = L.icon({
 
 
 onClick(imageType: string): void {
+  debugger;
   if (imageType === 'prof') {
-    this.src = this.deliveryProf;
-    this.show = true
+    if (this.deliveryProf) {
+      this.src = this.deliveryProf;
+      this.show = true;
+      this.text = "Delivery Proof";
+    } else {
+      this.message.create('info', 'No Delivery Proof Image Available');
+      this.show = false;
+    }
   } else if (imageType === 'sign') {
-    this.src = this.ReciverSignature;
+    if (this.ReciverSignature) {
+      this.src = this.ReciverSignature;
+      this.show = true;
+      this.text = "Receiver Signature";
+    } else {
+      this.message.create('info', 'No Receiver Signature Image Available');
+      this.show = false;
+    }
   }
+}
 
-
+hideimgModal(){
+  this.show = false
 }
 // getLiveLocation() {
 //   if (navigator.geolocation) {

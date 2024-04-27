@@ -51,6 +51,7 @@ export class DriverDashComponent implements OnInit {
   liveLocationlongitude: any;
   private locationUpdateInterval: any;
   marker: any;
+  completedJob: any;
   constructor(public commonservice: DriverCommonService, private coreservice: CoreService, private router: Router, private cityService: CommonService) { }
   ngOnInit() {
     debugger
@@ -63,6 +64,7 @@ export class DriverDashComponent implements OnInit {
         this.username = element.fullName
         this.driverId = element.id
         // this.commonservice.getuserrecord(element.id)
+        this.commonservice.getAssignDriverrecord( this.driverId)
       });
       console.log(this.username);
 
@@ -81,7 +83,9 @@ export class DriverDashComponent implements OnInit {
     // this.commonservice.jobDeliverCount$.subscribe(data => {
     // this.jobdelv = data
     // })
-   
+   this.commonservice.jobDeliverCount$.subscribe(data => {
+    this.completedJob=data
+  })
    this.userData()
     this.map = L.map('map').setView([0, 0], 10);
     this.startLiveLocationUpdates();

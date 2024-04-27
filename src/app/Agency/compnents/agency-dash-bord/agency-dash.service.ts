@@ -26,6 +26,8 @@ export class AgencyDashService {
 
     orderSuccessful: boolean=false
     managecargodata: any[] = [];
+    private managecargodatas = new BehaviorSubject<any>(null);
+    managecargodata$ = this.managecargodatas.asObservable();
     cargoID: any;
     userLoginData: any;
     Alldata: any;
@@ -132,30 +134,25 @@ export class AgencyDashService {
       }
     );
   }
-  getmanageCargo(userId: any): void {
-    this.coreservice.getManageCargoById(userId).subscribe(
-      (response) => {
-
-        if (response && Object.keys(response).length > 0) {
-          // this.managecargodata=[]
-          this.managecargodata = response;
-          localStorage.setItem('managecargodata', '')
-          localStorage.setItem('managecargodata', JSON.stringify(response))
-          console.log(response);
-          // alert('data fetched successfully')
-
-
-        } else {
-          // alert('data not fetched successfully')
-
-        }
-      },
-      (error) => {
-        console.error('Error fetching data:', error);
-
-      });
-
+  async getmanageCargo(userId: any) {
+    try {
+      const response = await this.coreservice.getManageCargoById(userId).toPromise();
+  
+      if (response && Object.keys(response).length > 0) {
+this.managecargodatas.next(response)
+        this.managecargodata = response;
+        localStorage.setItem('managecargodata', '');
+        localStorage.setItem('managecargodata', JSON.stringify(response));
+        console.log(response);
+        // alert('data fetched successfully')
+      } else {
+        // alert('data not fetched successfully')
+      }
+    } catch (error) {
+      console.error('Error in async operation:', error);
+    }
   }
+  
   updateManageCartgo(id: any, data: any) {
     this.coreservice.updateMangeCargo(id, data).subscribe(
       (response) => {
