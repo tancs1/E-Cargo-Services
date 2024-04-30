@@ -94,6 +94,14 @@
                     Passwords must match
                 </p>
             </div>
+            <div class="mb-3">
+                <label class="block mb-2 text-sm font-bold text-gray-700" for="cnic">CNIC Image</label>
+                <input formControlName="cnic" id="cnic" type="file" placeholder="******************"
+                    class="w-full px-3 py-2  text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline">
+                <p class="text-red-500 text-xs italic" *ngIf="signupForm.get('cnic')?.invalid && signupForm.get('cnic')?.touched">
+                    Passwords must match
+                </p>
+            </div>
         
             <div class="mb-6 text-center">
                 <button type="submit"

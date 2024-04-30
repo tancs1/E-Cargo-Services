@@ -68,9 +68,12 @@ AcceptedjobSearch: any;
       })
   }
   async getDashcartData(){
+    await this.commonservice.getuserrecord()
     await this.commonservice.getAllAcceptedJobByAgency()
    await this.commonservice.getAllJobsByUser()
    await this.commonservice.getCanceledJobRecord()
+   await this.commonservice.getAllRegisteredUser()
+   await this.commonservice.getAllRegisteredAgency()
    this.jobData=this.commonservice.userBookingReacod
    this.totalItemsTab1 = this.jobData.length;
    this.AcceptedJobData=this.commonservice.AgencyAcceptedReacod
