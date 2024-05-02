@@ -28,6 +28,7 @@ export class DashCommonService implements OnInit {
   loading: boolean=true
   cancelReason: any;
   userdata: any;
+  excludedFields = ['_id', '__v'];
   private Jobdeliverd = new BehaviorSubject<any>(null);
   jobDeliverCount$ = this.Jobdeliverd.asObservable();
   private JobCancel = new BehaviorSubject<any>(null);
@@ -194,7 +195,8 @@ getuserrecordforCancel(id: any): void {
         this.canceljobs = response;
         console.log(this.canceljobs);
         this.JobCancel.next(response);
-        this.jobcanceled(response)
+        const filteredData = this.removeExcludedFields(response, this.excludedFields);
+        this.jobcanceled(filteredData)
    console.log( this.canceljobs);
    this.deleteUser(id)
 
@@ -208,6 +210,21 @@ getuserrecordforCancel(id: any): void {
     }
   );
 }
+
+
+// Function to remove excluded fields from an object
+ removeExcludedFields(obj:any, excludedFields:any) {
+  const newObj = { ...obj }; // Create a copy of the original object
+  excludedFields.forEach((field: string | number) => {
+    delete newObj[field]; // Delete the field from the copy
+  });
+  return newObj;
+}
+
+// Remove excluded fields from the response data
+
+
+// Now filteredData contains only the relevant fields
 
 deleteUser(Id: any): void {
   this.coreservice.deleteUserRecord(Id).subscribe(

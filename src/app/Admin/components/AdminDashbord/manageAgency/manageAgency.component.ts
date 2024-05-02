@@ -27,6 +27,10 @@ export class ManageAgencyComponent implements OnInit {
   AgencyData: any[]=[];
   userId: any;
   AgencyId: any;
+  cnicfrontImg: any;
+  src: any;
+  text: any;
+  cnicBackImg: any;
   constructor(private fb: FormBuilder, private message: NzMessageService, private coreService: CoreService,public commonservice:AdminCommonService) {
     this.form = this.fb.group({
       fullname: ['', Validators.required],
@@ -199,6 +203,39 @@ this.coreService.delsignupAgencyRecordById(id).subscribe(user =>{
       this.message.create('warning', `Fill Form Correctly`);
 
     }
+  }
+  show: boolean = false;
+  onClick(imageType: string,id:any): void {
+    debugger;
+   const filterdata= this.AgencyData.find((data:any)=>
+data.id === id)
+  
+    if (imageType === 'front') {
+    this.cnicfrontImg=filterdata.cnicFrontImg
+      if (filterdata && this.cnicfrontImg) {
+        this.cnicfrontImg=filterdata.cnicFrontImg
+        this.cnicBackImg=filterdata.cnicBackImg
+        this.src = this.cnicfrontImg;
+        this.show = true;
+        this.text = "CNIC Front Side Image";
+      } else {
+        this.message.create('info', 'No CNIC Front Image Available');
+        this.show = false;
+      }
+    } else if (imageType === 'back') {
+      this.cnicBackImg=filterdata.cnicBackImg
+      if (filterdata && this.cnicBackImg) {
+        this.src = this.cnicBackImg;
+        this.show = true;
+        this.text = "CNIC Back Side Image";
+      } else {
+        this.message.create('info', 'No  CNIC Back Image Available');
+        this.show = false;
+      }
+    }
+  }
+  hideimgModal(){
+    this.show = false
   }
 }
 

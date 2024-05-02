@@ -25,20 +25,25 @@
           <th>company Name</th>
           <th>NTN #</th>
           <th>Address</th>
+          <th>CNIC Image</th>
           <th>Action</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let data of nzTable.data; let i=index">
-     <td class="text-center font-bold text-base">{{i+1}}</td>
+     <td class=" font-bold text-base">{{i+1}}</td>
           <td>{{ data.fullname }}</td>
           <td>{{ data.email }}</td>
           <td>{{ data.mobile }}</td>
           <td>{{ data.password }}</td>
           <td>{{ data.businessName }}</td>
           <td>{{ data.ntn }}</td>
-          <td>{{ data.address }}</td>
          
+          <td>{{ data.address }}</td>
+          <td class="w-fit flex flex-col gap-3">
+            <span class="underline cursor-pointer hover:text-blue-800 "(click)="onClick('front',data.id)">view front side</span>
+            <span class="underline cursor-pointer hover:text-blue-800 "(click)="onClick('back',data.id)">view Back side</span>
+          </td>
          
           <td class="bg-slate-200" > <div class="flex gap-8 justify-center text-base ">
             <i class="fa-regular fa-pen-to-square text-blue-700" (click)="EditAgencyDetail(data.id)"></i> 
@@ -166,3 +171,41 @@
 
     </ng-container>
 </nz-drawer>
+<div *ngIf="show" class="relative z-50" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+
+  <!--
+    Background backdrop, show/hide based on modal state.
+
+    Entering: "ease-out duration-300"
+      From: "opacity-0"
+      To: "opacity-100"
+    Leaving: "ease-in duration-200"
+      From: "opacity-100"
+      To: "opacity-0"
+  -->
+  <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
+
+  <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+    <span class="absolute right-7 top-4" (click)="hideimgModal()" type="button"><i class="fa-regular fa-rectangle-xmark text-3xl text-slate-200 hover:text-red-400 "></i></span>
+    <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+      <!--
+        
+        Modal panel, show/hide based on modal state.
+
+        Entering: "ease-out duration-300"
+          From: "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+          To: "opacity-100 translate-y-0 sm:scale-100"
+        Leaving: "ease-in duration-200"
+          From: "opacity-100 translate-y-0 sm:scale-100"
+          To: "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+      -->
+      <div class=" h-fit relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-fit">
+        <img src={{src}} alt="">
+<div class="w-full text-center">
+  
+  <span class=" text-2xl ">{{text}}</span>
+</div>
+      </div>
+    </div>
+  </div>
+</div>

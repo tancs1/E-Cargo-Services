@@ -48,10 +48,10 @@ export class CargoStatusComponent implements OnInit {
   this.userLoginData.forEach((element: {
     vehicleNumber: any;
     phoneNumber: any;
-    id: any; fullName: any; AgencyId:any
+    _id: any; fullName: any; AgencyId:any
 }) => {
     this.username=element.fullName
-this.driverId=element.id
+this.driverId=element._id
 this.DriverContact=element.phoneNumber
 this.driverVehicleNo=element.vehicleNumber
 this.agencyId=element.AgencyId
@@ -92,10 +92,10 @@ this.agencyId=element.AgencyId
       this.managecargodata = JSON.parse(data);
       this.managecargodata.forEach((element: {
         trackingId: any;
-        id: any;
+        _id: any;
       }) => {
 
-        this.cargoId = element.id;
+        this.cargoId = element._id;
         this.trackingid = element.trackingId
  
         alert(this.cargoId);
@@ -191,17 +191,17 @@ this.deliveryProof=e.target.result
       } else {
         console.log('No job found with ID:', this.jobId);
       }
-
+debugger
       const specficDriverRec=this.commonservice.DriverData.find((data:any) => data.driverId===this.driverId)
       if(specficDriverRec){
         const cargoStatusValue = this.form.get('cargoStatus')?.value;
 
         specficDriverRec.status = cargoStatusValue
-        this.commonservice.updateJobStatusforDriver(specficDriverRec.id ,specficDriverRec)
+        this.commonservice.updateJobStatusforDriver(specficDriverRec._id ,specficDriverRec)
 
         this.commonservice.managecargodata = []
 debugger
-const specficUserRec = this.commonservice.userData.find((data: any) => data.id === this.jobId);
+const specficUserRec = this.commonservice.userData.find((data: any) => data._id === this.jobId);
 if (specficUserRec) {
   const cargoStatusValue = this.form.get('cargoStatus')?.value;
   specficUserRec.status = cargoStatusValue;

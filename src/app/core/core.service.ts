@@ -57,8 +57,7 @@ export class CoreService {
   }
   
   createUserBookingcancelReacod(data: any): Observable<any> {
-    // Assuming you want to send data to the 'usersBookingRecord' endpoint
-    console.log('create cancel ordertable',this.http.post<any>(`${this.baseUrl}/cancelOrder`, data));
+
     
     return this.http.post<any>(`${this.baseUrl}/cancelOrder`, data);
   }
@@ -72,13 +71,10 @@ export class CoreService {
   }
   getUserBookingReacodtocancel(id:any): Observable<any> {
     
-    // Assuming you want to send data to the 'usersBookingRecord' endpoint
-    console.log('getcancelbookin',this.http.get<any>(`${this.baseUrl}/usersBookingRecord/${id}`));
-    
     return this.http.get<any>(`${this.baseUrl}/usersBookingRecord/${id}`);
   }
   deleteUserRecord(id: any): Observable<any> {
-    console.log('deleteUserRecord',this.http.delete<any>(`${this.baseUrl}/usersBookingRecord/${id}`));
+ 
     
     return this.http.delete<any>(`${this.baseUrl}/usersBookingRecord/${id}`);
   }
@@ -88,7 +84,7 @@ export class CoreService {
     return this.http.delete<any>(`${this.baseUrl}/cancelOrder/${id}`);
   }
   getVehicleTypesRecord(): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}/vehicle_Types`);
+    return this.http.get<any>(`${this.baseUrl}/vehicletype`);
   }
   getGoodsTypesRecord(): Observable<any> {
     return this.http.get<any>(`${this.baseUrl}/goodsTypes`);
@@ -180,21 +176,21 @@ export class CoreService {
   }
   manageCargo(data: any): Observable<any> {
     // Assuming you want to send data to the 'usersBookingRecord' endpoint
-    return this.http.post<any>(`${this.baseUrl}/Tracking`, data);
+    return this.http.post<any>(`${this.baseUrl}/CargoTracking`, data);
   }
 
 
   updateMangeCargo(trackingId: string, updatedData: any): Observable<any> {
     // Assuming your API endpoint for updating tracking information is '/Tracking'
     // Use PUT method to update an existing entry
-    return this.http.put<any>(`${this.baseUrl}/Tracking/${trackingId}`, updatedData);
+    return this.http.put<any>(`${this.baseUrl}/CargoTracking/${trackingId}`, updatedData);
   }
   updateAcceptedOrder( updatedData: any) {
 const id=updatedData.id
     return this.http.put(`${this.baseUrl}/OrderAccepByAgency/${id}`, updatedData); // Send a PUT request to update the post
   }
       getManageCargoById(TrackingId:any): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}/Tracking/?trackingId=${TrackingId}`);
+    return this.http.get<any>(`${this.baseUrl}/CargoTracking/?trackingId=${TrackingId}`);
   }
   orderCancelReason(){
     return this.http.get<any>(`${this.baseUrl}/orderCancelReason`);
@@ -214,4 +210,7 @@ const id=updatedData.id
   updateAdminRecordByID(id:any,data:any): Observable<any> {
     return this.http.put<any>(`${this.baseUrl}/adminDetails/${id}`,data);
   }
+ 
+
+ 
 }
