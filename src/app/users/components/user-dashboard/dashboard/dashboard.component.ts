@@ -63,13 +63,18 @@ console.log("selected value:",this.selectedValue);
     this.isVisible = false;
   }
  
-   cancel(id:any) {
+    cancel(id:any) {
     debugger
     console.log('OK button clicked');
   
     this.commonservice.cancelReason=this.selectedValue
      this.commonservice.getuserrecordforCancel(id)
-   this.commonservice.getuserrecord(this.userid)
+   setTimeout(()=>{
+    
+     this.commonservice.getuserrecord(this.userid)
+   },500)
+
+   
 }
 }
   

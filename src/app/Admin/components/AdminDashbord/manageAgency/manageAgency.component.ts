@@ -8,7 +8,7 @@ interface DataItem {
   email: number;
   address: string;
   mobile: string;
-  id:any,
+  _id:any,
   password:any;
   businessName:string
   ntn:number
@@ -157,7 +157,7 @@ this.coreService.delsignupAgencyRecordById(id).subscribe(user =>{
     this.drawertype="edit"
     
       let AgencyData
-     AgencyData=this.AgencyData.filter(user => user.id==id)
+     AgencyData=this.AgencyData.filter(user => user._id==id)
       AgencyData.forEach((element:any) => {
         this.form.patchValue({
           fullname:element.fullname,
@@ -168,7 +168,7 @@ this.coreService.delsignupAgencyRecordById(id).subscribe(user =>{
           businessName:element.businessName,
           ntn:element.ntn,
         })
-        this.AgencyId=element.id
+        this.AgencyId=element._id
       });
     
     this.open()
@@ -208,7 +208,7 @@ this.coreService.delsignupAgencyRecordById(id).subscribe(user =>{
   onClick(imageType: string,id:any): void {
     debugger;
    const filterdata= this.AgencyData.find((data:any)=>
-data.id === id)
+data._id === id)
   
     if (imageType === 'front') {
     this.cnicfrontImg=filterdata.cnicFrontImg

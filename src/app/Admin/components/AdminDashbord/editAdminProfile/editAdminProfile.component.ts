@@ -44,9 +44,9 @@ export class EditAdminProfileComponent implements OnInit {
     const loginUser=localStorage.getItem('LoginAdmin')
     if(loginUser){
       this.loginuser=JSON.parse(loginUser)
-    this.loginuser.forEach((element: { id: any; }) => {
-    this.userid=element.id
-      this.coreService.getAdminRecordByID(element.id)
+    this.loginuser.forEach((element: { _id: any; }) => {
+    this.userid=element._id
+      this.coreService.getAdminRecordByID(element._id)
       this.signupuser=element
     });
       this.signUpUserData$.subscribe((data) =>{
@@ -80,7 +80,7 @@ this.form2.patchValue({
       console.log(this.form1.value);
       
       this.signup={
-        id:this.userid,
+        _id:this.userid,
         name:this.form1.value.name,
         email:this.form1.value.email,
       }

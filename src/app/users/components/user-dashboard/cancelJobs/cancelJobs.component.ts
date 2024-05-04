@@ -57,6 +57,11 @@ this.cancelJob=data
     });
   }
   confirmDelete(id: string){
+    
 this.commonservice.deletedrecod(id)
+
+this.getCancelrecord()
+ 
+
   }
 }

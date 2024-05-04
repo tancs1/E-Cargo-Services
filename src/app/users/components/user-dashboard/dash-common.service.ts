@@ -35,6 +35,7 @@ export class DashCommonService implements OnInit {
   jobCancel$ = this.JobCancel.asObservable();
   Delivered: any;
   filterData: any[]=[];
+  show: boolean=false;
 constructor( private coreservice:CoreService) {
   const jobcount = localStorage.getItem('jobcount');
   if (jobcount) {
@@ -255,6 +256,8 @@ async getcurentcancelorder(id: any) {
   const response=await this.coreservice.getUserBookingCanceldRecod(id).toPromise()
  
       if (response && Object.keys(response).length > 0) {
+      
+  this.show=true
         this.allCanceljobs = response;
       
    this.canceljobcount=response && Object.keys(response).length ;
@@ -264,8 +267,10 @@ async getcurentcancelorder(id: any) {
  console.log("all cancel recod",this.allCanceljobs);
  
 
-   
-      } 
+} else{
+  this.show=false
+}
+    
     }catch(error) {
       console.error('Error fetching data:', error);
       alert('Error fetching data');
@@ -276,18 +281,18 @@ async getcurentcancelorder(id: any) {
 
 
 
-  deletedrecod(Id: any): void {
-  this.coreservice.deletecancelRecord(Id).subscribe(
-    () => {
+  async deletedrecod(Id: any){
+    try{
+ await this.coreservice.deletecancelRecord(Id).toPromise() 
       console.log('User record deleted successfully');
       // Handle success as needed
       alert('User cancel job successfully')
-    },
-    (error) => {
+    }catch
+    (error)  {
       console.error('Error deleting user record:', error);
       // Handle error as needed
     }
-  );}
+  }
   getSignUserData(id:any){
     debugger
     this.coreservice.getsignupUserRecordById(id).subscribe(

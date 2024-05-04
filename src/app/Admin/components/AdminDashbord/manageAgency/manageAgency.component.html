@@ -41,14 +41,14 @@
          
           <td>{{ data.address }}</td>
           <td class="w-fit flex flex-col gap-3">
-            <span class="underline cursor-pointer hover:text-blue-800 "(click)="onClick('front',data.id)">view front side</span>
-            <span class="underline cursor-pointer hover:text-blue-800 "(click)="onClick('back',data.id)">view Back side</span>
+            <span class="underline cursor-pointer hover:text-blue-800 "(click)="onClick('front',data._id)">view front side</span>
+            <span class="underline cursor-pointer hover:text-blue-800 "(click)="onClick('back',data._id)">view Back side</span>
           </td>
          
           <td class="bg-slate-200" > <div class="flex gap-8 justify-center text-base ">
-            <i class="fa-regular fa-pen-to-square text-blue-700" (click)="EditAgencyDetail(data.id)"></i> 
+            <i class="fa-regular fa-pen-to-square text-blue-700" (click)="EditAgencyDetail(data._id)"></i> 
             
-            <i  nz-popconfirm nzPopconfirmTitle="Sure to delete?" (nzOnConfirm)="deleteAgency(data.id)" class="fa-regular fa-trash-can text-red-700" ></i>
+            <i  nz-popconfirm nzPopconfirmTitle="Sure to delete?" (nzOnConfirm)="deleteAgency(data._id)" class="fa-regular fa-trash-can text-red-700" ></i>
           </div>
       </td>
       

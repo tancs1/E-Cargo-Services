@@ -6,7 +6,7 @@ import { CoreService } from 'src/app/core/core.service';
 interface DataItem {
   name: string;
   email: number;
-  id:any,
+  _id:any,
   password:any;
 
 }
@@ -145,7 +145,7 @@ this.coreService.delAdminRecordByID(id).subscribe(user =>{
     this.drawertype="edit"
     
       let userData
-     userData=this.UserData.filter(user => user.id==id)
+     userData=this.UserData.filter(user => user._id==id)
       userData.forEach((element:any) => {
         this.form.patchValue({
           name:element.name,
@@ -154,7 +154,7 @@ this.coreService.delAdminRecordByID(id).subscribe(user =>{
        
           password:element.password,
         })
-        this.userId=element.id
+        this.userId=element._id
       });
     
     this.open()

@@ -3,7 +3,7 @@
 
     <h1 class="text-slate-600 font-semibold text-4xl  ">All Canceled Jobs</h1>
 </div>
-<div *ngIf="commonservice.allCanceljobs">
+<div *ngIf="commonservice.show">
   <div class="w-full  flex ml-10 justify-center mt-10  " *ngFor="let item of commonservice.allCanceljobs">
     <div class="w-8/12  shadow-md rounded-md bg-white  h-fit  pb-10 ">
   <div class="w-full h-fit bg-white  flex justify-between items-center  px-5 " style="border-bottom: 1px solid  rgb(196, 196, 196);"><h3 class="pt-5"> <img class="w-6  mb-1 text-slate-400" src="../../../../../assets/imges/package.svg"> Canceled Jobs</h3> <i (click)="showDeleteConfirm(item._id)" class="fa-solid fa-xmark hover:bg-red-700 hover:text-white px-2 shadow-sm hover:shadow-lg rounded-md font-semibold text-lg "></i></div>
@@ -38,7 +38,7 @@
     </div>
   </div>
 </div>
-<div *ngIf="!commonservice.allCanceljobs" class="w-full  flex flex-col items-center justify-center ml-10  mt-10 ">
+<div *ngIf="!commonservice.show" class="w-full  flex flex-col items-center justify-center ml-10  mt-10 ">
       
   <div class="w-8/12 h-52">
  

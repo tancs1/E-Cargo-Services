@@ -8,7 +8,7 @@ interface DataItem {
   email: number;
   address: string;
   mobile: string;
-  id:any,
+  _id:any,
   password:any;
   status:any
 }
@@ -148,7 +148,9 @@ this.coreService.delsignupUserRecordById(id).subscribe(user =>{
     this.drawertype="edit"
     
       let userData
-     userData=this.UserData.filter(user => user.id==id)
+console.log(      this.UserData);
+
+     userData=this.UserData.filter(user => user._id==id)
       userData.forEach((element:any) => {
         this.form.patchValue({
           fullname:element.fullname,
@@ -157,7 +159,7 @@ this.coreService.delsignupUserRecordById(id).subscribe(user =>{
           mobile:element.mobile,
           password:element.password,
         })
-        this.userId=element.id
+        this.userId=element._id
       });
     
     this.open()

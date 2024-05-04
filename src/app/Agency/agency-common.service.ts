@@ -28,6 +28,7 @@ export class AgencyCommonService implements OnInit {
   signupuserdetail: any;
   job: any[]=[]
   excludedFields = ['_id', '__v'];
+  AlljobsData: any[]=[];
   constructor(private coreservice: CoreService,private message:NzMessageService) { }
 
   ngOnInit(): void {
@@ -67,27 +68,27 @@ filterAgencyJobs(allJobs: any[], agencyJobs: any[]): any[] {
 }
 
 // Modify getAllJobs to filter out agency jobs
-getAllJobs() {
-  this.coreservice.getAllUserBookingReacod().pipe(
+async getAllJobs() {
+  try{
+ const response= await this.coreservice.getAllUserBookingReacod().pipe(
     map((allJobs: any[]) => {
       if (this.agencyjobs && this.agencyjobs.length > 0) {
+        this.AlljobsData=allJobs.filter(job => !this.agencyjobs.some((agencyJob: {jobid: any; }) => agencyJob.jobid === job._id));
         // Filter out jobs that are also in the agency jobs data
-        return allJobs.filter(job => !this.agencyjobs.some((agencyJob: {jobid: any; }) => agencyJob.jobid === job._id));
+        return this.AlljobsData
       } else {
         // If there are no agency jobs data, return all jobs
         return allJobs;
       }
     })
-  ).subscribe(
-    (response: any) => {
+  ).toPromise()
       // Update the records with filtered jobs
       this.AllJobs.next(response);
       console.log("All non-agency jobs:", response);
-    },
-    (error) => {
+    }catch(error:any) {
       console.error('Error fetching data:', error);
     }
-  );
+  
 }
 
 
