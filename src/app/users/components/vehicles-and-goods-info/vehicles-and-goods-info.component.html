@@ -31,9 +31,9 @@
               <label for="">Vehicle Type</label>
             
               <div class="w-full relative z-10"> <!-- Add z-10 class -->
-                <button class=" w-full h-10 " (click)="toggleDropdown()">
+                <button class=" w-full h-10 border border-slate-200 " (click)="toggleDropdown()">
                   <div class="flex items-center">
-                    <li class="list-none">
+                    <li class="list-none flex">
                       <img class="w-7 mr-1" [src]="selectedImage" alt="">
                       <span>{{ selectedOption }}</span>
                     </li>
@@ -42,7 +42,7 @@
                 <div class="absolute top-full w-full z-20" *ngIf="open"> <!-- Add z-20 class -->
                   <ul class=" pb-2 list-none bg-white shadow-lg px-0 w-full h-[200px] overflow-y-scroll"> <!-- Adjust padding -->
                    <ng-container  *ngFor="let item of vehicleTypesdata">
-                     <li class="py-2  hover:bg-slate-200 px-2" (click)="selectOption(item.name, item.src)">
+                     <li class="py-2  hover:bg-slate-200 px-2 flex" (click)="selectOption(item.name, item.src)">
                       <img class="w-7 mr-2" [src]="item.src" alt="" value="1">
                       <span>{{item.name}}</span>
                     </li>
