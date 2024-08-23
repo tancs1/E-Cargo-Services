@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class CoreService {
   // baseUrl = 'http://localhost:3000';
-  baseUrl = 'https://ecs-backend-rho.vercel.app/';
+  baseUrl = 'https://ecs-backend-rho.vercel.app';
 
   constructor(private http: HttpClient) { }
 
